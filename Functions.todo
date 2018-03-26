@@ -1,0 +1,223 @@
+Preprocessing @created(21-03-18 20:43):
+  In this category, I am going to write the functions, modules and classes that are used during preprocessing of the data.
+
+	Importing data:
+	Well, we need data to do anything in this problem. General modules that we need include,numpy as np,matplotlib.pyplot as plt,pandas as pd.
+	Usage-
+	  dataset = pd.read_csv('Data.csv') we use pandas to read datasets.
+
+	Missing data:
+	If there are missing values in the dataset, it will cause issues, hence, we need to fill it with some approximate value. we have the following choices -
+		☐ sklearn.preprocessing
+			  ☐ Imputer
+			  This is used to fill in the missing data with the mean of the elements in that column or row.
+			  Usage-
+				imputer = Imputer(missing_values='NaN', strategy='mean', axis=0)
+				imputer = imputer.fit(x[:, 1:3])
+				x[:, 1:3] = imputer.transform(x[:, 1:3])
+
+   Categorical Data:
+   We have to change those variables that are not numbers to numbers!
+	   ☐ sklearn.preprocessing
+			☐ LabelEncoder
+			This is used for categorical data, when the values are alphabets and not numbers, we use LabelEncoder to change them to numbers so that we can use different mathematical functions on them.
+			Usage -
+			  labelencoder_x = LabelEncoder()
+			  x[:, 0] = labelencoder_x.fit_transform(x[:, 0])
+			☐ OneHotEncoder
+			This class will make sure that all categorical variables are the same. So this essentially creates multiple columns of the variables with values 0 and 1, depending on the value of the variable.
+			Usage -
+				onehotencoder = OneHotEncoder(categorical_features=[0]) # Here 0 is the index of the column that has categorical variable.
+				x[] = onehotencoder.fit_transform(x).toarray()
+
+	Training and testing data split:
+	We have to validate our model  by using some data and check the accuracy, hence, we have to split the data into two parts, training data, dataset to train our model, and testing data, dataset to test our model against. To do this, we have the following options -
+		 ☐ sklearn.model_selection
+			   ☐ test_train_split
+			   This class will take the independent and dependent matrices and split them into 4 different matrices of test and train independent and dependent variables. okay so apparently cross_validation has been removed/replaced by model_selection. So thats what we are using now.
+			   Usage -
+				   from sklearn.model_selection import train_test_split
+				   x_train,x_test,y_train,y_test = train_test_split(x,y,test_size = 0.2, random_state = 0)
+
+	 Feature Scaling:
+	 Often, we have the case where the variables in our dataset are not in the same range. Hence, the algorithm might give preference to the variable that has higher value, which we have to avoid to make accurate predictions. Hence, we will scale our variables to the same range.
+	 1) We don't have to scale dummy variables *always* as they are in the range of 0-1, we can only do them depending on the context
+	 2) feature scaling also reduces the training time of the algorithm.
+	 3) We also don't have to scale dependent variables, if its a categorical variable, but if its a quantity that can take a range of variables, we have to scale it as well.
+		 ☐ sklearn.preprocessing
+				 ☐ StandardScaler
+				 Some important points to note while feature scaling, when we are applying StandardScaler obj to training set, we have to fit the training set and then transform, hence the .fit_transform(x_train) in the code, whereas for test set, we just have to transform it
+				 Usage -
+				 sc_x = StandardScaler()
+				 x_train = sc_x.fit_transorm(x_train)
+				 x_test = sc_x.transform(x_test) #we don't have to fit the test data since the training data is already trained and thus the test data will also be trained.
+
+Regression:
+This is the basic yet very powerfule Machine learning Algorithm, and is used commonly. There are many types of Regression Algorithms, which include -
+	Simple Linear Regression @created(22-03-18 20:42):
+	☐ There are 5 assumptions in linear regression models, which we have to consider before choosing our model to be a Linear Regression model, we have to make sure that our dataset follows the assumptions. @high They are:
+	1) Linearity
+	2) Homoscedacity
+	3) Multivariate Normality
+	4) Independence of errors
+	5) Lack of multicollinearity
+
+	  In this approach the Dependent Variable (DV) is assumed to be in a linear relationship with the Independent Variable(IV), hence, y = b0 + b1*x. We have to find b0 and b1 for the line that best fits our model dataset. To find the co-efficients, we just use the sum of least squares method, i.e., we calculate sum((y^-yi)^2) for a number of lines and choose the one that gives the least sum.
+	  Usage -
+	  ☐ Preprocessing:
+		1) Import the modules and the data set similar to the preprocessing steps.
+		2) Run the Imputer if there are any missing values.
+		3) No label encoding, since they are numbers
+		4) Split the dataset into train and test data set.
+		4) No feature scaling, since the modules take care of them for this model.
+
+	  ☐ Model generation:
+		  ☐ sklearn.linear_model
+			  ☐ LinearRegression
+			  We will use this class for simple linear regression model.
+			  Usage -
+			  from sklearn.linear_model import LinearRegression
+			  Regressor = LinearRegression() # create an object first
+			  Regressor.fit(x_train,y_train) # call method .fit() with x and y training data sets.
+
+	   ☐ Testing the model:
+	   Now after the model is trained with the training datasets, we have to test it with the test dataset.
+	   Code Snippet -
+		 y_pred = Regressor.predict(x_test)
+
+	   ☐ Visualising the Results:
+		   ☐ matplotlib as plt
+		   We use this plt module to plot models on python.
+		   Usage -
+		   plt.scatter(x_train, y_train, color = 'red') # scatter plot
+		   plt.plot(x_train, Regressor.predict(x_train), color = 'blue') # Normal straight line plot
+		   plt.title('Experience vs Salary') #Label the plot
+		   plt.xlabel('Years of Experience') # X-axis label
+		   plt.ylabel('Salary') # Y-axis label.
+		   plt.show() # Plots the graph, so cool!
+
+	   That's it. Our first model is generated. PogChamp Guys!
+
+   Multiple Linear Regression @created(22-03-18 21:00):
+
+   		Similar to the simple linear regression approach, the MLR model also has the similar formula of y = b0 + b1*x1 + b2*x2 ... but in this case, the variables x, should be numerical variables, if they are categorical variables, we have to create dummy variables which will convert the categorical column into multiple (depending on no of unique values  in categorical variable) columns having values of 0 and 1. This way, we can use them in the formula.
+   		Also not that, we *should* not include all dummy variables in the formula to determine the dependent variable. This is because, the way in which regression models work is that they consider the case where a dummy variable isn't present as the default case and include that in the constant vale, which gets reduced when we include a dummy variable. @high
+   		If the categorical variables are not mutually exclusive, like genre of a movie can be action and thriller at the same time. In such cases, we have to create a dummy variable for each one individually and create the model. In the above example, we will have dummy value = 1 for both action and thriller category.
+
+   		☐ Dummy Variable Trap:
+   			We should not include all the dummy variables in the algorithm at the same time (when we also include constant term, which we usually do). 	This is because of multi linearity, i.e., one term can be used to predict another term in the equation. In such cases, the model cant differentiate between the effects of related variables properly. Hence, we should always reduce one dummy variable in our model.
+
+   		☐ P-value is something that is important to look at, lower the P-value, the more significant is the independent variable in determinig the required dependent variable (https://www.youtube.com/watch?v=-FtlH4svqx4) @high:
+	   		Pvalue is related to hypothesis and the accuracy, suppose we say our hypothesis is true and the p-value obtained is lower(less than 0.05), the hypothesis is wrong and we have to reject that hypothesis! and we should change our hypothesis. Note that this is not a direct probability, its just a chance that our sample data set might occur again. Hence, in our problems, we assume that our sample results is just a luck, and then calculate the P-value, and if we get that below a significant value, we can say that our sample results is not luck.
+
+	   ☐ Why we shouldn't use all the variables in our model?
+	   		In multiple regression model, the reasons we have to reduce our predictors are because, the more variables we give to the model, the less stable it will be and less accurate are our results. Also, it will be easier for us to understand the results if there are less variables.
+	   ☐ Types of Multiple linear regression models:
+	   		☐	All-In model:
+	   			This is model is generally not preferred since we don't want to put all our variables in our model, but can't be avoided in case where our company/framework requires us to do so.
+	   			This model can also be helpful to prepare the data for Backward elimination method.
+
+	   		☐	Backward Elimination :
+	   			1) Select a significance level to stay in the model (e.g. SL = 0.05)
+	   			2) Fit the model with all possible predictors.
+	   			3) Select the predictor with the highest P-value. If P>SL, go to step 4, else go to FIN (Finish, your model is ready)
+	   			4) Remove that predictor.
+	   			5) Fit the model with the remaining predictors.
+	   			6) Go back to step 3 and repeat the steps 3-5 until all the P-values are less than the SL.
+
+	   		☐	Forward Selection :
+	   			1) Select a significance level to stay in the model (e.g. SL = 0.05)
+	   			2) Fit all the simple linear regression models y~Xn and select the one with the lowest P-value
+	   			3) keep this variable and fit all possible models with one extra variable added to the one you already have.
+	   			4) Consider the predictor with the lowest P-value. If P<SL, go to step 3 and proceed again, else go to FIN (Finish, model is ready, we keep the previous model, since the latest model has P>SL)
+
+	   		☐	Bi-Directional Elimination (Step-wise Regression) :
+	   			1) Select a significance level to enter and stay in the model, SLENTER = 0.05, SLSTAY = 0.05
+	   			2) Perform the next step of forward selection (new variables must have P < SLENTER to enter the model)
+	   			3) Perform the next step of Backward elimination (old variables must have P < SLSTAY to stay in the model)
+	   			4) Go back to step 2 and proceed to look for new variable to add.
+	   			5) If no new variables can be added and no old variables can exit, proceed to FINISH, our model is ready!
+
+	   		☐	All possible models (Score comparison model) :
+	   			Most resource consuming approach we are to compute all the models.
+	   			1) Select a criterion for goodness of fit (e.g. Akaike criterion)
+	   			2) Construct all possible regression models, 2^n - 1 total combinations.
+	   			3) Select the one with the best criterion.
+	   			4) FINISH, our model is ready!
+	   			Even though it looks easy, it's not used since it requires very high computational power and has many unnecessary models.
+
+	   		The backward elimination is supposed to be the fastest approach compared to all other approaches mentioned above.
+	   ☐ Program in Python :
+	   		☐ All-In Model :
+	   			☐ Preprocessing :
+	   				Follow the above steps discussed in preprocessing, import the dataset, import  the modules, split the data set into dependent and independent variables, use labelEncoder and OneHotEncoder to handle categorical variables, remove one column to avoid the dummy variable trap and finally split the dataset into training and test sets.
+	   			☐ Model Generation :
+	   				☐ sklearn.linear_model
+	   					☐	LinearRegression
+	   					Same as for simple linear regression model, we use the same  module.
+	   					Usage -
+			  				from sklearn.linear_model import LinearRegression
+			  				Regressor = LinearRegression() # create an object first
+			  				Regressor.fit(x_train,y_train) # call method .fit() with x and y training data sets.
+				☐ Testing the model:
+	   				Now after the model is trained with the training datasets, we have to test it with the test dataset.
+	   				Code Snippet -
+		 				y_pred = Regressor.predict(x_test)
+
+		 	☐	Backward elimination :
+		 		☐ Preprocessing :
+		 			same of previous cases.
+		 		☐ Model Generation :
+		 			☐ statsmodels.formula.api as sm
+		 			Before we proceed generating this model, note that statsmodel.formula.api module doesn't have inbuilt capability to add constant variable at the start of the independent variables matrix. Hence, we have to add it ourselves.
+		 			Steps to add new column at the beginning of the dataset -
+		 			x[] = np.append(arr = x, values = np.ones((50,1)).astype(int), axis = 1)
+		 			# general syntax of append function is,
+		 			# first parameter is the first matrix, the matrix to which we want to append the new matrix.
+		 			# The second parameter is the new matrix, which will be added to the first matrix.
+		 			# The last parameter is the axis, indicating whether the addition matrix is a column or a row, i.e., use axis = 0 for row, axis = 1 for column.
+		 			Therefore, our required code will be -
+		 			x[] = np.append(arr = np.ones((50,1)).astype(int), values = x, axis = 1)
+
+		 			☐ create the x_opt matrix which contains all the independent variables of x, indexes should be labeled manually.
+		 				x_opt = x[:,[0, 1, 2, 3, 4, 5]]
+		 			☐ create a regressor and fit our model:
+		 				regressor_OLS = sm.OLS(endog = y, exog = x_opt).fit() # OLS stands for ordinary least squares.
+		 			☐ see the summary of the regressor
+		 				regressor_OLS.summary()
+
+   Polynomial Linear Regression @created(24-03-18 17:08):
+   	Polynomial linear regression is of the form, y = b0 + b1*x1 + b2*x2^2 +...., as we can see, even though we have exponential terms in the equation, we still call it linear because, we have to look at the co-efficient terms (b0, b1,..) and not the variables. These coefficients are still linearly related to the dependent variable. Hence, the term Polynomial Linear Regression.
+   		☐ Preprocessing
+   			Similar to the previous cases, we have to  first process our data, creating matrices of x and y, test and train data and encoding if any. we don't have to feature scale because, the library that we are going to use will do it for us automatically.
+   		☐ Model Generation :
+   			☐ sklearn.preprocessing
+   				☐ PolynomialFeatures
+   					Usage -
+   					from sklearn.preprocessing import PolynomialFeatures
+   					poly_reg = PolynomialFetaures(degree = 2) # degree indicates the number of 											  # polynomial terms of variable x 											  # that we want.
+   					x_poly = poly_reg.fit_transform(x)
+   			☐ sklearn.linear_model
+   				☐ LinearRegression
+   					Similar to the previous linear Regression models, create a regression model, but in this case, we use x_poly matrix instead of the x matrix.
+   					Usage -
+   					lin_reg = LinearRegression()
+   					lin_reg.fit_transform(x_poly, y)
+   			☐ Visualising the Results:
+		   		☐ matplotlib as plt
+		   			We use this plt module to plot models on python.
+		   			Usage -
+		   			plt.scatter(x, y, color = 'red') # scatter plot
+		   			plt.plot(x, lin_reg.predict(poly_reg.fit_transform(x)), color = 'blue') # Normal straight line plot we also use x, instead of x_poly because, x_poly is only a matrix based on x, but if we add new values and want to predict them as well, we have to generalize it and thus we use poly_reg.fit_transform(x)
+		   			plt.title('Experience vs Salary') #Label the plot
+		   			plt.xlabel('Years of Experience') # X-axis label
+		   			plt.ylabel('Salary') # Y-axis label.
+		   			plt.show() # Plots the graph, so cool!
+
+		   			We can do better by adding a degree to the poly_reg object and training again.
+
+		   		☐ np.arrange()
+		   			Use this function to get smooth curves instead of lines in the plot, we are basically doing many calculations and plotting all of them
+		   			syntax - np.arrange(lowerbound, upperbound, increment)
+		   			x_grid = np.arrange(min(x), max(x), 0.1) # this will give a vector.
+		   			x_grid = x_grid.reshape(len(x_grid),1)
