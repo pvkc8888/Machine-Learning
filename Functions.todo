@@ -55,12 +55,12 @@ Preprocessing @created(21-03-18 20:43):
 Regression:
 This is the basic yet very powerfule Machine learning Algorithm, and is used commonly. There are many types of Regression Algorithms, which include -
 	Simple Linear Regression @created(22-03-18 20:42):
-	☐ There are 5 assumptions in linear regression models, which we have to consider before choosing our model to be a Linear Regression model, we have to make sure that our dataset follows the assumptions. @high They are:
-	1) Linearity
-	2) Homoscedacity
-	3) Multivariate Normality
-	4) Independence of errors
-	5) Lack of multicollinearity
+		☐ There are 5 assumptions in linear regression models, which we have to consider before choosing our model to be a Linear Regression model, we have to make sure that our dataset follows the assumptions. @high They are:
+			1) Linearity
+			2) Homoscedacity
+			3) Multivariate Normality
+			4) Independence of errors
+			5) Lack of multicollinearity
 
 	  In this approach the Dependent Variable (DV) is assumed to be in a linear relationship with the Independent Variable(IV), hence, y = b0 + b1*x. We have to find b0 and b1 for the line that best fits our model dataset. To find the co-efficients, we just use the sum of least squares method, i.e., we calculate sum((y^-yi)^2) for a number of lines and choose the one that gives the least sum.
 	  Usage -
@@ -187,24 +187,24 @@ This is the basic yet very powerfule Machine learning Algorithm, and is used com
 		 				regressor_OLS.summary()
 
    Polynomial Linear Regression @created(24-03-18 17:08):
-   	Polynomial linear regression is of the form, y = b0 + b1*x1 + b2*x2^2 +...., as we can see, even though we have exponential terms in the equation, we still call it linear because, we have to look at the co-efficient terms (b0, b1,..) and not the variables. These coefficients are still linearly related to the dependent variable. Hence, the term Polynomial Linear Regression.
-   		☐ Preprocessing
-   			Similar to the previous cases, we have to  first process our data, creating matrices of x and y, test and train data and encoding if any. we don't have to feature scale because, the library that we are going to use will do it for us automatically.
-   		☐ Model Generation :
-   			☐ sklearn.preprocessing
-   				☐ PolynomialFeatures
-   					Usage -
-   					from sklearn.preprocessing import PolynomialFeatures
-   					poly_reg = PolynomialFetaures(degree = 2) # degree indicates the number of 											  # polynomial terms of variable x 											  # that we want.
-   					x_poly = poly_reg.fit_transform(x)
-   			☐ sklearn.linear_model
-   				☐ LinearRegression
-   					Similar to the previous linear Regression models, create a regression model, but in this case, we use x_poly matrix instead of the x matrix.
-   					Usage -
-   					lin_reg = LinearRegression()
-   					lin_reg.fit_transform(x_poly, y)
-   			☐ Visualising the Results:
-		   		☐ matplotlib as plt
+	   	Polynomial linear regression is of the form, y = b0 + b1*x1 + b2*x2^2 +...., as we can see, even though we have exponential terms in the equation, we still call it linear because, we have to look at the co-efficient terms (b0, b1,..) and not the variables. These coefficients are still linearly related to the dependent variable. Hence, the term Polynomial Linear Regression.
+	   		☐ Preprocessing
+	   			Similar to the previous cases, we have to  first process our data, creating matrices of x and y, test and train data and encoding if any. we don't have to feature scale because, the library that we are going to use will do it for us automatically.
+	   		☐ Model Generation :
+	   			☐ sklearn.preprocessing
+	   				☐ PolynomialFeatures
+	   					Usage -
+	   					from sklearn.preprocessing import PolynomialFeatures
+	   					poly_reg = PolynomialFetaures(degree = 2) # degree indicates the number of 											  # polynomial terms of variable x 											  # that we want.
+	   					x_poly = poly_reg.fit_transform(x)
+	   			☐ sklearn.linear_model
+	   				☐ LinearRegression
+	   					Similar to the previous linear Regression models, create a regression model, but in this case, we use x_poly matrix instead of the x matrix.
+	   					Usage -
+	   					lin_reg = LinearRegression()
+	   					lin_reg.fit_transform(x_poly, y)
+	   		☐ Visualising the Results:
+			   	☐ matplotlib as plt
 		   			We use this plt module to plot models on python.
 		   			Usage -
 		   			plt.scatter(x, y, color = 'red') # scatter plot
@@ -221,3 +221,31 @@ This is the basic yet very powerfule Machine learning Algorithm, and is used com
 		   			syntax - np.arrange(lowerbound, upperbound, increment)
 		   			x_grid = np.arrange(min(x), max(x), 0.1) # this will give a vector.
 		   			x_grid = x_grid.reshape(len(x_grid),1)
+
+	 Support Vector Regression (SVR) @created(29-03-18 14:23) :
+	 		I dont know much about these models, but there's some theory attached to it, which I will read in the future. Right now, I have basic idea of what that is and gonna continue with the code.
+	 		☐ Preprocessing:
+	 			Similar to the previous cases, we have to  first process our data, creating matrices of x and y, test and train data and encoding if any. we _have_ to feature scale because, the library that we are going to use will not do it for us automatically. So, refer back to feature scaling in preprocessing and do it.
+	 			Usage -
+	 				sc_x = StandardScaler()
+				 	sc_y = StandardScaler()
+				 	X = sc_x.fit_transorm(x)
+				 	y = sc_y.fit_transorm(y)
+
+	 		☐ Model Generation :
+	   			☐ sklearn.svm
+	   				☐ SVM
+	   					Usage -
+	   					from sklearn.svm import SVM
+	   					regressor = SVM(kernel = 'rbf') # default value of kernel  is rbf
+	   					regressor.fit(x, y)
+	   		☐ Visualising the results :
+	   			Since we scaled the x and y matrices, we have to scale our test data so that its in the same scale as the training data. We can do that by using the same sc_x.fit_transorm() method
+	   			usage -
+	   				y_pred = sc_y.inverse_transform(regressor.predict(sc_x.fit_transorm(np.array([[value here]]))))
+	   			The above line of code can be broken down as,
+	   			. we first have to create an array of our required value, since the fit_transform method requires an arrray. we can use np.array method to create an array.
+	   			. once the fit_transform scales our test value, we use predict() method to predict our value
+	   			. Since the predict method returns a scaled value, we have to do inverse scaling to get the output in the proper scaling. hence, we use the inverse_transform() method.
+
+
