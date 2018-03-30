@@ -248,4 +248,36 @@ This is the basic yet very powerfule Machine learning Algorithm, and is used com
 	   			. once the fit_transform scales our test value, we use predict() method to predict our value
 	   			. Since the predict method returns a scaled value, we have to do inverse scaling to get the output in the proper scaling. hence, we use the inverse_transform() method.
 
+	Decision Tree @created(30-03-18 01:47):
+		CART (Classification and Regression Trees)
+		So this is a very interesting concept, we split the dataset into different sets (terminal leaves) and calculate the value of the prediction by finding which split the test value belongs to, and finding the average of all the values in the dataset that belong to that split. Since, there are splits and yes/no cases, we call this Decision Tree Regression algorithm.
+			☐ Preprocessing:
+				Similar to the previous cases, we have to  first process our data, creating matrices of x and y, test and train data and encoding if any. we don't have to feature scale because, the library that we are going to use will do it for us automatically.
 
+			☐ Model Generation:
+				☐ sklearn.tree
+					☐ DecisionTreeRegressor
+						Usage -
+						from sklearn.tree import DecisionTreeRegressor
+						regressor = DecisionTreeRegressor() # has many arguments, google if necessary!
+			☐ Visualising the results:
+				So this is an awkward plot. Refer to the code folder to see what I am talking about. So if there's only one variable, we will get a plot connecting all the dataset points, which is definitely not intended plot. So to get the correct representation of the plot, we have to plot a high resolution plot. This plot essentially looked like a stair case.
+		Important thing to note about this model is that its a non-linear non-continuous model. Also, this model is not very effective for 1D dataset. will be more useful if the dataset has more than 1D\
+
+	Random Forest @created(30-03-18 11:31):
+		This method is similar to decision tree, actually, it's just an extension of Decision tree method. The way we do this is by selecting K values from our dataset and use them to make a decision tree model. We have to repeat this model several times choosing different values and building different trees. The final test prediction is found by predicting the value of the test data in each of the decision tree model and taking the average of all the obtained predictions.
+		Also, we can see that since it's an extension of Decision tree model, Random Forest model is also Non-linear non-continuous ensemble model.
+			☐ Preprocessing:
+				Similar to the previous cases, we have to  first process our data, creating matrices of x and y, test and train data and encoding if any. we don't have to feature scale because, the library that we are going to use will do it for us automatically.
+			☐ Model Generation:
+				☐ sklearn.ensemble
+					☐ RandomForestRegressor
+						Usage -
+						from sklearn.ensemble import RandomForestRegressor
+						regressor = RandomForestRegressor(n_estimators = 10) # parameter is the number of trees, more the better usually
+						regressor.fit(x,y)
+			☐ Visualising the results:
+				We get more steps(splits) in each stair(training data points) compared to the basic decision tree model.
+				It is important to note that, even if we increase the number of trees, it doesn't mean that we will get more stairs in the graph. This is because, the more trees you add, the average is the converging to the same value, this is related to entropy and information gain.
+				Even though the number of stairs won't increase, the value of the stair will change depending on the number of trees.
+		https://medium.com/@rnbrown/creating-and-visualizing-decision-trees-with-python-f8e8fa394176 refer to this link for more on plotting decision tree models.
