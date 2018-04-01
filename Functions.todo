@@ -203,7 +203,7 @@ This is the basic yet very powerfule Machine learning Algorithm, and is used com
 	   					Usage -
 	   					lin_reg = LinearRegression()
 	   					lin_reg.fit_transform(x_poly, y)
-	   		☐ Visualising the Results:
+	   		☐ Visualizing the Results:
 			   	☐ matplotlib as plt
 		   			We use this plt module to plot models on python.
 		   			Usage -
@@ -218,7 +218,7 @@ This is the basic yet very powerfule Machine learning Algorithm, and is used com
 
 		   		☐ np.arrange()
 		   			Use this function to get smooth curves instead of lines in the plot, we are basically doing many calculations and plotting all of them
-		   			syntax - np.arrange(lowerbound, upperbound, increment)
+		   			syntax - np.arrange(lower bound, upper bound, increment)
 		   			x_grid = np.arrange(min(x), max(x), 0.1) # this will give a vector.
 		   			x_grid = x_grid.reshape(len(x_grid),1)
 
@@ -239,7 +239,7 @@ This is the basic yet very powerfule Machine learning Algorithm, and is used com
 	   					from sklearn.svm import SVM
 	   					regressor = SVM(kernel = 'rbf') # default value of kernel  is rbf
 	   					regressor.fit(x, y)
-	   		☐ Visualising the results :
+	   		☐ Visualizing the results :
 	   			Since we scaled the x and y matrices, we have to scale our test data so that its in the same scale as the training data. We can do that by using the same sc_x.fit_transorm() method
 	   			usage -
 	   				y_pred = sc_y.inverse_transform(regressor.predict(sc_x.fit_transorm(np.array([[value here]]))))
@@ -259,8 +259,8 @@ This is the basic yet very powerfule Machine learning Algorithm, and is used com
 					☐ DecisionTreeRegressor
 						Usage -
 						from sklearn.tree import DecisionTreeRegressor
-						regressor = DecisionTreeRegressor() # has many arguments, google if necessary!
-			☐ Visualising the results:
+						regressor = DecisionTreeRegressor() # has many arguments, Google if necessary!
+			☐ Visualizing the results:
 				So this is an awkward plot. Refer to the code folder to see what I am talking about. So if there's only one variable, we will get a plot connecting all the dataset points, which is definitely not intended plot. So to get the correct representation of the plot, we have to plot a high resolution plot. This plot essentially looked like a stair case.
 		Important thing to note about this model is that its a non-linear non-continuous model. Also, this model is not very effective for 1D dataset. will be more useful if the dataset has more than 1D\
 
@@ -276,7 +276,7 @@ This is the basic yet very powerfule Machine learning Algorithm, and is used com
 						from sklearn.ensemble import RandomForestRegressor
 						regressor = RandomForestRegressor(n_estimators = 10) # parameter is the number of trees, more the better usually
 						regressor.fit(x,y)
-			☐ Visualising the results:
+			☐ Visualizing the results:
 				We get more steps(splits) in each stair(training data points) compared to the basic decision tree model.
 				It is important to note that, even if we increase the number of trees, it doesn't mean that we will get more stairs in the graph. This is because, the more trees you add, the average is the converging to the same value, this is related to entropy and information gain.
 				Even though the number of stairs won't increase, the value of the stair will change depending on the number of trees.
@@ -288,8 +288,13 @@ This is the basic yet very powerfule Machine learning Algorithm, and is used com
 			Importance of the R-Squared value is that, it tells us how good our prediction is. It usually lies between 0 and 1 (it can also be negative but if thats the case, its worse).
 			Higher the R^2 value, the accurate our model is.
 		☐ Adjusted R^2:
-			If we notice from the R^2 formula, we can notice that SStot will not change depending on the number of variables, only variable is SSres. So, looking at SSres, we 	can notice that if we add a new variable, the new variable might have a relation with the prediction and we can get better results and increased R^2 value. But on the other hand, if the new variable is not relevant to the model, the SSres might not change, in which case R^2 wont change or our model will try to find some correlation (even though there isnt any) and SSres decreases and R^2 increases (which is not what we want, since we dont R^2 to increase when there's no relation between the variable and the prediction). That's when Adjusted R^2 comes to the rescue.
+			If we notice from the R^2 formula, we can notice that SStot will not change depending on the number of variables, only variable is SSres. So, looking at SSres, we 	can notice that if we add a new variable, the new variable might have a relation with the prediction and we can get better results and increased R^2 value. But on the other hand, if the new variable is not relevant to the model, the SSres might not change, in which case R^2 wont change or our model will try to find some correlation (even though there isn't any) and SSres decreases and R^2 increases (which is not what we want, since we don't R^2 to increase when there's no relation between the variable and the prediction). That's when Adjusted R^2 comes to the rescue.
 									Adj R^2 = 1 - (1 - R^2)(n-1)/(n - p -1))
 									where p = number of regressors.
 										  n = sample size.
+      The way adjusted R^2 works is by, it penalizes us for adding independent variables that won't effect out model.
+      So, in our analysis, instead of blindly following the steps of regression model, we also have to keep checking for the Adjusted R^2 values and make sure they increase too as we continue with the model
 
+    ☐ Interpreting Coefficients:
+      If the sign is positive, it means that if we increase the independent variable, the dependent variable also increases.
+      We should be careful while interpreting the magnitudes of the coefficients. We can think of it like for a unit increase in the independent variable, there will a coefficient times increase in the dependent variable. Once we know the units of t
