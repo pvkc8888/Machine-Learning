@@ -281,3 +281,15 @@ This is the basic yet very powerfule Machine learning Algorithm, and is used com
 				It is important to note that, even if we increase the number of trees, it doesn't mean that we will get more stairs in the graph. This is because, the more trees you add, the average is the converging to the same value, this is related to entropy and information gain.
 				Even though the number of stairs won't increase, the value of the stair will change depending on the number of trees.
 		https://medium.com/@rnbrown/creating-and-visualizing-decision-trees-with-python-f8e8fa394176 refer to this link for more on plotting decision tree models.
+
+	Evaluating Regression model performance @created(30-03-18 16:15):
+		☐ R-Squared Intuition:
+			Let us assume sum of squares of the residuals that we obtain from our model is SSres and sum of squares of difference with respect to the average line to be SStot, then R^2 is defined as 1-(SSres/SStot)
+			Importance of the R-Squared value is that, it tells us how good our prediction is. It usually lies between 0 and 1 (it can also be negative but if thats the case, its worse).
+			Higher the R^2 value, the accurate our model is.
+		☐ Adjusted R^2:
+			If we notice from the R^2 formula, we can notice that SStot will not change depending on the number of variables, only variable is SSres. So, looking at SSres, we 	can notice that if we add a new variable, the new variable might have a relation with the prediction and we can get better results and increased R^2 value. But on the other hand, if the new variable is not relevant to the model, the SSres might not change, in which case R^2 wont change or our model will try to find some correlation (even though there isnt any) and SSres decreases and R^2 increases (which is not what we want, since we dont R^2 to increase when there's no relation between the variable and the prediction). That's when Adjusted R^2 comes to the rescue.
+									Adj R^2 = 1 - (1 - R^2)(n-1)/(n - p -1))
+									where p = number of regressors.
+										  n = sample size.
+
