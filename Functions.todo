@@ -388,4 +388,30 @@ Classification @created(31-03-18 23:10):
            So we have to plot the predictions and analyze the results. Similar to the plot in Logistic regression, we generate the same graph and analyze the results.
       The important thing to note about this classifier is that, it is a non-linear  model. Hence, the boundary is not a straight line and we can separate the data which cannot be separated by linear model.
 
-
+  Support Vector Machines (SVM) @created(02-04-18 13:35):
+      This model is used to classify data that can be linearly classified.
+      This is a linear model.
+      The way this model works is by, finding an optimal line (known as hyper-line or maximum margin classifier) that has maximum margin(i.e. it is equidistant from both the categories and has maximum sum of distances possible). The two points are called supporting vectors.
+      The main reason people prefer SVM algorithm is because of the special feature that the SVM model offeres. It is, the model will look at the data and find the object that can be easily confused as the other object(apple that looks like orange) and learns from that, this is different because other Machine learning models will look at the easily predictable data and learn from them.
+      Hence, SVM models can give very accurate predictions at times.
+      ☐ Preprocessing:
+          Similar to the previous regression models, we have to preprocess our data before we start building our model. Just to recap, we have to import the pandas, numpy and matplotlib libraries. Import the dataset. Prepare the training and testing datasets. Also feature scale if necessary.
+          In this case, we have to apply feature scaling.
+          That's it, we can start building our model.
+      ☐ Model Generation:
+          ☐ sklearn.svm
+              ☐ SVC
+                  Usage -
+                  from sklearn.svm import SVC
+                  classifier = SVC(kernel = 'linear') # change the kernel to 'poly','rbf' or 'sigmoid' and test different results.
+                  classifier.fit(x_train, y_train)
+      ☐ Analyzing the results:
+           y_pred = classifier.predict(x_test)
+           So now that we have the predicted values, we can check if our model made the correct prediction by cross verifying them with the y_test values. This can be done by creating a confusion matrix.
+               ☐ Confusion Matrix
+                   Usage -
+                   from sklearn.metrics import confusion_matrix
+                   cm = confusion_matrix(y_true, y_pred)
+      ☐ Visualizing the results:
+           So we have to plot the predictions and analyze the results. Similar to the plot in Logistic regression, we generate the same graph and analyze the results.
+      The important thing to note about this classifier is that, it is a linear  model. Hence, the boundary is a straight line.
