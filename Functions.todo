@@ -53,7 +53,7 @@ Preprocessing @created(21-03-18 20:43):
 				 x_test = sc_x.transform(x_test) #we don't have to fit the test data since the training data is already trained and thus the test data will also be trained.
 
 Regression:
-  This is the basic yet very powerfule Machine learning Algorithm, and is used commonly. There are many types of Regression Algorithms, which include -
+  This is the basic yet very powerful Machine learning Algorithm, and is used commonly. There are many types of Regression Algorithms, which include -
 	Simple Linear Regression @created(22-03-18 20:42):
 		☐ There are 5 assumptions in linear regression models, which we have to consider before choosing our model to be a Linear Regression model, we have to make sure that our dataset follows the assumptions. @high They are:
 			1) Linearity
@@ -310,10 +310,10 @@ Classification @created(31-03-18 23:10):
     6) Decision Tree Classification
     7) Random Forest Classification
   Logistic Regression @created(01-04-18 12:28):
-    So, Logistic regression is similar to linear regression. But, in this case, the dependent variable is not a quantity, but more like a yes/no question. The way to predict the dependent variable is by applying a sigmoid function on the dependent variable and hence, the prediction line now looks like a curve instead of straight line. The equation of the curve is
+        So, Logistic regression is similar to linear regression. But, in this case, the dependent variable is not a quantity, but more like a yes/no question. The way to predict the dependent variable is by applying a sigmoid function on the dependent variable and hence, the prediction line now looks like a curve instead of straight line. The equation of the curve is
                                        ln(p/(1-p)) = b0 + b1*x
-    this line is same as the line for linear regression line. This line will help us predict the probability of the dependent variable. Instead of saying yes/no for the dependent variable, our curves predicts the probability between 0/1. To get value of the dependent value instead of probability, we can assume a significant line (0.5 usually) and then assign value 0 to all those below the line and 1 for values above the line.
-    Also, note that Logistic Regression is a linear classifier.
+        this line is same as the line for linear regression line. This line will help us predict the probability of the dependent variable. Instead of saying yes/no for the dependent variable, our curves predicts the probability between 0/1. To get value of the dependent value instead of probability, we can assume a significant line (0.5 usually) and then assign value 0 to all those below the line and 1 for values above the line.
+        Also, note that Logistic Regression is a linear classifier.
         ☐ Preprocessing:
             Similar to the previous regression models, we have to preprocess our data before we start building our model. Just to recap, we have to import the pandas, numpy and matplotlib libraries. Import the dataset. Prepare the training and testing datasets. Also feature scale if necessary.
             In this case, we have to apply feature scaling.
@@ -344,13 +344,13 @@ Classification @created(31-03-18 23:10):
            The way we plot our graph is,
            we subdivide all the points on our graph and make a prediction for those values and colorize them accordingly. The way we do that is by,
            X1, X2 = np.meshgrid(np.arange(start = X_set[:, 0].min() - 1, stop = X_set[:, 0].max() + 1, step =0.01),
-           np.arange(start = X_set[:, 1].min() - 1, stop = X_set[:, 1].max() + 1, step =0.01))
+                                np.arange(start = X_set[:, 1].min() - 1, stop = X_set[:, 1].max() + 1, step =0.01))
 
            now we have a matrix of all the possible values that the independent variables can have.
            Next step is to predict the value of dependent variable for all those values.
 
            plt.contourf(X1, X2, classifier.predict(np.array([X1.ravel(), X2.ravel()]).T).reshape(X1.reshape),
-           alpha = 0.75, cmap = ListedColormap(('red', 'green')))
+                       alpha = 0.75, cmap = ListedColormap(('red', 'green')))
 
            Now we have colorized the background of our graph, next step is to plot the actual dependent variable that we have.
 
@@ -359,4 +359,33 @@ Classification @created(31-03-18 23:10):
                 c = ListedColormap(('red', 'green'))(i), label = j)
 
            That's it we have generated our graph and now we can visualize our predictions and analyze our data!
+
+  K-Nearest Neighbors (KNN) @created(02-04-18 00:01):
+      This model is used to predict the category to which the test data belongs to. The following steps are involved in generation of this model-
+      1) Choose the number K of neighbors (usually taken as 5)
+      2) Take the K nearest neighbors of the new data point, according to the Euclidean distances.
+      3) Among the K neighbors, count the number of data points in each category.
+      4) Assign the data point to the category where you counted the most neighbors.
+      Model is ready!
+      ☐ Preprocessing:
+          Similar to the previous regression models, we have to preprocess our data before we start building our model. Just to recap, we have to import the pandas, numpy and matplotlib libraries. Import the dataset. Prepare the training and testing datasets. Also feature scale if necessary.
+          In this case, we have to apply feature scaling.
+          That's it, we can start building our model.
+      ☐ Model Generation:
+          ☐ sklearn.neighbors
+              ☐ KNeighborsClassifier
+                  Usage -
+                  from sklearn.neighbors import KNeighborsClassifier
+                  classifier = KNeighborsClassifier(n_neighbors = 5, metric = 'minkowski', p = 2)
+                  classifier.fit(x_train, y_train)
+      ☐ Analyzing the results:
+           So now that we have the predicted values, we can check if our model made the correct prediction by cross verifying them with the y_test values. This can be done by creating a confusion matrix.
+               ☐ Confusion Matrix
+                   Usage -
+                   from sklearn.metrics import confusion_matrix
+                   cm = confusion_matrix(y_true, y_pred)
+      ☐ Visualizing the results:
+           So we have to plot the predictions and analyze the results. Similar to the plot in Logistic regression, we generate the same graph and analyze the results.
+      The important thing to note about this classifier is that, it is a non-linear  model. Hence, the boundary is not a straight line and we can separate the data which cannot be separated by linear model.
+
 
