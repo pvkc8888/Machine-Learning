@@ -8,8 +8,8 @@ Preprocessing @created(21-03-18 20:43):
 
 	Missing data:
 	If there are missing values in the dataset, it will cause issues, hence, we need to fill it with some approximate value. we have the following choices -
-		☐ sklearn.preprocessing
-			  ☐ Imputer
+		- sklearn.preprocessing
+			  - Imputer
 			  This is used to fill in the missing data with the mean of the elements in that column or row.
 			  Usage-
 				imputer = Imputer(missing_values='NaN', strategy='mean', axis=0)
@@ -18,13 +18,13 @@ Preprocessing @created(21-03-18 20:43):
 
    Categorical Data:
    We have to change those variables that are not numbers to numbers!
-	   ☐ sklearn.preprocessing
-			☐ LabelEncoder
+	   - sklearn.preprocessing
+			- LabelEncoder
 			This is used for categorical data, when the values are alphabets and not numbers, we use LabelEncoder to change them to numbers so that we can use different mathematical functions on them.
 			Usage -
 			  labelencoder_x = LabelEncoder()
 			  x[:, 0] = labelencoder_x.fit_transform(x[:, 0])
-			☐ OneHotEncoder
+			- OneHotEncoder
 			This class will make sure that all categorical variables are the same. So this essentially creates multiple columns of the variables with values 0 and 1, depending on the value of the variable.
 			Usage -
 				onehotencoder = OneHotEncoder(categorical_features=[0]) # Here 0 is the index of the column that has categorical variable.
@@ -32,8 +32,8 @@ Preprocessing @created(21-03-18 20:43):
 
 	Training and testing data split:
 	We have to validate our model  by using some data and check the accuracy, hence, we have to split the data into two parts, training data, dataset to train our model, and testing data, dataset to test our model against. To do this, we have the following options -
-		 ☐ sklearn.model_selection
-			   ☐ test_train_split
+		 - sklearn.model_selection
+			   - test_train_split
 			   This class will take the independent and dependent matrices and split them into 4 different matrices of test and train independent and dependent variables. okay so apparently cross_validation has been removed/replaced by model_selection. So thats what we are using now.
 			   Usage -
 				   from sklearn.model_selection import train_test_split
@@ -44,8 +44,8 @@ Preprocessing @created(21-03-18 20:43):
 	 1) We don't have to scale dummy variables *always* as they are in the range of 0-1, we can only do them depending on the context
 	 2) feature scaling also reduces the training time of the algorithm.
 	 3) We also don't have to scale dependent variables, if its a categorical variable, but if its a quantity that can take a range of variables, we have to scale it as well.
-		 ☐ sklearn.preprocessing
-				 ☐ StandardScaler
+		 - sklearn.preprocessing
+				 - StandardScaler
 				 Some important points to note while feature scaling, when we are applying StandardScaler obj to training set, we have to fit the training set and then transform, hence the .fit_transform(x_train) in the code, whereas for test set, we just have to transform it
 				 Usage -
 				 sc_x = StandardScaler()
@@ -55,7 +55,7 @@ Preprocessing @created(21-03-18 20:43):
 Regression:
   This is the basic yet very powerful Machine learning Algorithm, and is used commonly. There are many types of Regression Algorithms, which include -
 	Simple Linear Regression @created(22-03-18 20:42):
-		☐ There are 5 assumptions in linear regression models, which we have to consider before choosing our model to be a Linear Regression model, we have to make sure that our dataset follows the assumptions. @high They are:
+		- There are 5 assumptions in linear regression models, which we have to consider before choosing our model to be a Linear Regression model, we have to make sure that our dataset follows the assumptions. @high They are:
 			1) Linearity
 			2) Homoscedacity
 			3) Multivariate Normality
@@ -64,29 +64,29 @@ Regression:
 
 	  In this approach the Dependent Variable (DV) is assumed to be in a linear relationship with the Independent Variable(IV), hence, y = b0 + b1*x. We have to find b0 and b1 for the line that best fits our model dataset. To find the co-efficients, we just use the sum of least squares method, i.e., we calculate sum((y^-yi)^2) for a number of lines and choose the one that gives the least sum.
 	  Usage -
-	  ☐ Preprocessing:
+	  - Preprocessing:
 		1) Import the modules and the data set similar to the preprocessing steps.
 		2) Run the Imputer if there are any missing values.
 		3) No label encoding, since they are numbers
 		4) Split the dataset into train and test data set.
 		4) No feature scaling, since the modules take care of them for this model.
 
-	  ☐ Model generation:
-		  ☐ sklearn.linear_model
-			  ☐ LinearRegression
+	  - Model generation:
+		  - sklearn.linear_model
+			  - LinearRegression
 			  We will use this class for simple linear regression model.
 			  Usage -
 			  from sklearn.linear_model import LinearRegression
 			  Regressor = LinearRegression() # create an object first
 			  Regressor.fit(x_train,y_train) # call method .fit() with x and y training data sets.
 
-	   ☐ Testing the model:
+	   - Testing the model:
 	   Now after the model is trained with the training datasets, we have to test it with the test dataset.
 	   Code Snippet -
 		 y_pred = Regressor.predict(x_test)
 
-	   ☐ Visualising the Results:
-		   ☐ matplotlib as plt
+	   - Visualising the Results:
+		   - matplotlib as plt
 		   We use this plt module to plot models on python.
 		   Usage -
 		   plt.scatter(x_train, y_train, color = 'red') # scatter plot
@@ -104,20 +104,20 @@ Regression:
    		Also not that, we *should* not include all dummy variables in the formula to determine the dependent variable. This is because, the way in which regression models work is that they consider the case where a dummy variable isn't present as the default case and include that in the constant vale, which gets reduced when we include a dummy variable. @high
    		If the categorical variables are not mutually exclusive, like genre of a movie can be action and thriller at the same time. In such cases, we have to create a dummy variable for each one individually and create the model. In the above example, we will have dummy value = 1 for both action and thriller category.
 
-   		☐ Dummy Variable Trap:
+   		- Dummy Variable Trap:
    			We should not include all the dummy variables in the algorithm at the same time (when we also include constant term, which we usually do). 	This is because of multi linearity, i.e., one term can be used to predict another term in the equation. In such cases, the model cant differentiate between the effects of related variables properly. Hence, we should always reduce one dummy variable in our model.
 
-   		☐ P-value is something that is important to look at, lower the P-value, the more significant is the independent variable in determinig the required dependent variable (https://www.youtube.com/watch?v=-FtlH4svqx4) @high:
+   		- P-value is something that is important to look at, lower the P-value, the more significant is the independent variable in determinig the required dependent variable (https://www.youtube.com/watch?v=-FtlH4svqx4) @high:
 	   		Pvalue is related to hypothesis and the accuracy, suppose we say our hypothesis is true and the p-value obtained is lower(less than 0.05), the hypothesis is wrong and we have to reject that hypothesis! and we should change our hypothesis. Note that this is not a direct probability, its just a chance that our sample data set might occur again. Hence, in our problems, we assume that our sample results is just a luck, and then calculate the P-value, and if we get that below a significant value, we can say that our sample results is not luck.
 
-	   ☐ Why we shouldn't use all the variables in our model?
+	   - Why we shouldn't use all the variables in our model?
 	   		In multiple regression model, the reasons we have to reduce our predictors are because, the more variables we give to the model, the less stable it will be and less accurate are our results. Also, it will be easier for us to understand the results if there are less variables.
-	   ☐ Types of Multiple linear regression models:
-	   		☐	All-In model:
-	   			This is model is generally not preferred since we don't want to put all our variables in our model, but can't be avoided in case where our company/framework requires us to do so.
-	   			This model can also be helpful to prepare the data for Backward elimination method.
+	   - Types of Multiple linear regression models:
+   	       - All-In model:
+   			This is model is generally not preferred since we don't want to put all our variables in our model, but can't be avoided in case where our company/framework requires us to do so.
+   			This model can also be helpful to prepare the data for Backward elimination method.
 
-	   		☐	Backward Elimination :
+	   		- Backward Elimination :
 	   			1) Select a significance level to stay in the model (e.g. SL = 0.05)
 	   			2) Fit the model with all possible predictors.
 	   			3) Select the predictor with the highest P-value. If P>SL, go to step 4, else go to FIN (Finish, your model is ready)
@@ -125,20 +125,20 @@ Regression:
 	   			5) Fit the model with the remaining predictors.
 	   			6) Go back to step 3 and repeat the steps 3-5 until all the P-values are less than the SL.
 
-	   		☐	Forward Selection :
+	   		- Forward Selection :
 	   			1) Select a significance level to stay in the model (e.g. SL = 0.05)
 	   			2) Fit all the simple linear regression models y~Xn and select the one with the lowest P-value
 	   			3) keep this variable and fit all possible models with one extra variable added to the one you already have.
 	   			4) Consider the predictor with the lowest P-value. If P<SL, go to step 3 and proceed again, else go to FIN (Finish, model is ready, we keep the previous model, since the latest model has P>SL)
 
-	   		☐	Bi-Directional Elimination (Step-wise Regression) :
+	   	    - Bi-Directional Elimination (Step-wise Regression) :
 	   			1) Select a significance level to enter and stay in the model, SLENTER = 0.05, SLSTAY = 0.05
 	   			2) Perform the next step of forward selection (new variables must have P < SLENTER to enter the model)
 	   			3) Perform the next step of Backward elimination (old variables must have P < SLSTAY to stay in the model)
 	   			4) Go back to step 2 and proceed to look for new variable to add.
 	   			5) If no new variables can be added and no old variables can exit, proceed to FINISH, our model is ready!
 
-	   		☐	All possible models (Score comparison model) :
+	   		- All possible models (Score comparison model) :
 	   			Most resource consuming approach we are to compute all the models.
 	   			1) Select a criterion for goodness of fit (e.g. Akaike criterion)
 	   			2) Construct all possible regression models, 2^n - 1 total combinations.
@@ -147,28 +147,28 @@ Regression:
 	   			Even though it looks easy, it's not used since it requires very high computational power and has many unnecessary models.
 
 	   		The backward elimination is supposed to be the fastest approach compared to all other approaches mentioned above.
-	   ☐ Program in Python :
-	   		☐ All-In Model :
-	   			☐ Preprocessing :
+	   - Program in Python :
+	   		- All-In Model :
+	   			- Preprocessing :
 	   				Follow the above steps discussed in preprocessing, import the dataset, import  the modules, split the data set into dependent and independent variables, use labelEncoder and OneHotEncoder to handle categorical variables, remove one column to avoid the dummy variable trap and finally split the dataset into training and test sets.
-	   			☐ Model Generation :
-	   				☐ sklearn.linear_model
-	   					☐	LinearRegression
+	   			- Model Generation :
+	   				- sklearn.linear_model
+	   					- LinearRegression
 	   					Same as for simple linear regression model, we use the same  module.
 	   					Usage -
 			  				from sklearn.linear_model import LinearRegression
 			  				Regressor = LinearRegression() # create an object first
 			  				Regressor.fit(x_train,y_train) # call method .fit() with x and y training data sets.
-				☐ Testing the model:
+				- Testing the model:
 	   				Now after the model is trained with the training datasets, we have to test it with the test dataset.
 	   				Code Snippet -
 		 				y_pred = Regressor.predict(x_test)
 
-		 	☐	Backward elimination :
-		 		☐ Preprocessing :
+		 	- Backward elimination :
+		 		- Preprocessing :
 		 			same of previous cases.
-		 		☐ Model Generation :
-		 			☐ statsmodels.formula.api as sm
+		 		- Model Generation :
+		 			- statsmodels.formula.api as sm
 		 			Before we proceed generating this model, note that statsmodel.formula.api module doesn't have inbuilt capability to add constant variable at the start of the independent variables matrix. Hence, we have to add it ourselves.
 		 			Steps to add new column at the beginning of the dataset -
 		 			x[] = np.append(arr = x, values = np.ones((50,1)).astype(int), axis = 1)
@@ -179,32 +179,32 @@ Regression:
 		 			Therefore, our required code will be -
 		 			x[] = np.append(arr = np.ones((50,1)).astype(int), values = x, axis = 1)
 
-		 			☐ create the x_opt matrix which contains all the independent variables of x, indexes should be labeled manually.
+		 			- create the x_opt matrix which contains all the independent variables of x, indexes should be labeled manually.
 		 				x_opt = x[:,[0, 1, 2, 3, 4, 5]]
-		 			☐ create a regressor and fit our model:
+		 			- create a regressor and fit our model:
 		 				regressor_OLS = sm.OLS(endog = y, exog = x_opt).fit() # OLS stands for ordinary least squares.
-		 			☐ see the summary of the regressor
+		 			- see the summary of the regressor
 		 				regressor_OLS.summary()
 
    Polynomial Linear Regression @created(24-03-18 17:08):
 	   	Polynomial linear regression is of the form, y = b0 + b1*x1 + b2*x2^2 +...., as we can see, even though we have exponential terms in the equation, we still call it linear because, we have to look at the co-efficient terms (b0, b1,..) and not the variables. These coefficients are still linearly related to the dependent variable. Hence, the term Polynomial Linear Regression.
-	   		☐ Preprocessing
+	   		- Preprocessing
 	   			Similar to the previous cases, we have to  first process our data, creating matrices of x and y, test and train data and encoding if any. we don't have to feature scale because, the library that we are going to use will do it for us automatically.
-	   		☐ Model Generation :
-	   			☐ sklearn.preprocessing
-	   				☐ PolynomialFeatures
+	   		- Model Generation :
+	   			- sklearn.preprocessing
+	   				- PolynomialFeatures
 	   					Usage -
 	   					from sklearn.preprocessing import PolynomialFeatures
 	   					poly_reg = PolynomialFetaures(degree = 2) # degree indicates the number of 											  # polynomial terms of variable x 											  # that we want.
 	   					x_poly = poly_reg.fit_transform(x)
-	   			☐ sklearn.linear_model
-	   				☐ LinearRegression
+	   			- sklearn.linear_model
+	   				- LinearRegression
 	   					Similar to the previous linear Regression models, create a regression model, but in this case, we use x_poly matrix instead of the x matrix.
 	   					Usage -
 	   					lin_reg = LinearRegression()
 	   					lin_reg.fit_transform(x_poly, y)
-	   		☐ Visualizing the Results:
-			   	☐ matplotlib as plt
+	   		- Visualizing the Results:
+			   	- matplotlib as plt
 		   			We use this plt module to plot models on python.
 		   			Usage -
 		   			plt.scatter(x, y, color = 'red') # scatter plot
@@ -216,7 +216,7 @@ Regression:
 
 		   			We can do better by adding a degree to the poly_reg object and training again.
 
-		   		☐ np.arange()
+		   		- np.arange()
 		   			Use this function to get smooth curves instead of lines in the plot, we are basically doing many calculations and plotting all of them
 		   			syntax - np.arange(lower bound, upper bound, increment)
 		   			x_grid = np.arange(min(x), max(x), 0.1) # this will give a vector.
@@ -224,7 +224,7 @@ Regression:
 
 	 Support Vector Regression (SVR) @created(29-03-18 14:23) :
 	 		I dont know much about these models, but there's some theory attached to it, which I will read in the future. Right now, I have basic idea of what that is and gonna continue with the code.
-	 		☐ Preprocessing:
+	 		- Preprocessing:
 	 			Similar to the previous cases, we have to  first process our data, creating matrices of x and y, test and train data and encoding if any. we _have_ to feature scale because, the library that we are going to use will not do it for us automatically. So, refer back to feature scaling in preprocessing and do it.
 	 			Usage -
 	 				sc_x = StandardScaler()
@@ -232,14 +232,14 @@ Regression:
 				 	X = sc_x.fit_transorm(x)
 				 	y = sc_y.fit_transorm(y)
 
-	 		☐ Model Generation :
-	   			☐ sklearn.svm
-	   				☐ SVM
+	 		- Model Generation :
+	   			- sklearn.svm
+	   				- SVM
 	   					Usage -
 	   					from sklearn.svm import SVM
 	   					regressor = SVM(kernel = 'rbf') # default value of kernel  is rbf
 	   					regressor.fit(x, y)
-	   		☐ Visualizing the results :
+	   		- Visualizing the results :
 	   			Since we scaled the x and y matrices, we have to scale our test data so that its in the same scale as the training data. We can do that by using the same sc_x.fit_transorm() method
 	   			usage -
 	   				y_pred = sc_y.inverse_transform(regressor.predict(sc_x.fit_transorm(np.array([[value here]]))))
@@ -251,43 +251,43 @@ Regression:
 	Decision Tree @created(30-03-18 01:47):
 		CART (Classification and Regression Trees)
 		So this is a very interesting concept, we split the dataset into different sets (terminal leaves) and calculate the value of the prediction by finding which split the test value belongs to, and finding the average of all the values in the dataset that belong to that split. Since, there are splits and yes/no cases, we call this Decision Tree Regression algorithm.
-			☐ Preprocessing:
+			- Preprocessing:
 				Similar to the previous cases, we have to  first process our data, creating matrices of x and y, test and train data and encoding if any. we don't have to feature scale because, the library that we are going to use will do it for us automatically.
 
-			☐ Model Generation:
-				☐ sklearn.tree
-					☐ DecisionTreeRegressor
+			- Model Generation:
+				- sklearn.tree
+					- DecisionTreeRegressor
 						Usage -
 						from sklearn.tree import DecisionTreeRegressor
 						regressor = DecisionTreeRegressor() # has many arguments, Google if necessary!
-			☐ Visualizing the results:
+			- Visualizing the results:
 				So this is an awkward plot. Refer to the code folder to see what I am talking about. So if there's only one variable, we will get a plot connecting all the dataset points, which is definitely not intended plot. So to get the correct representation of the plot, we have to plot a high resolution plot. This plot essentially looked like a stair case.
 		Important thing to note about this model is that its a non-linear non-continuous model. Also, this model is not very effective for 1D dataset. will be more useful if the dataset has more than 1D\
 
 	Random Forest @created(30-03-18 11:31):
 		This method is similar to decision tree, actually, it's just an extension of Decision tree method. The way we do this is by selecting K values from our dataset and use them to make a decision tree model. We have to repeat this model several times choosing different values and building different trees. The final test prediction is found by predicting the value of the test data in each of the decision tree model and taking the average of all the obtained predictions.
 		Also, we can see that since it's an extension of Decision tree model, Random Forest model is also Non-linear non-continuous ensemble model.
-			☐ Preprocessing:
+			- Preprocessing:
 				Similar to the previous cases, we have to  first process our data, creating matrices of x and y, test and train data and encoding if any. we don't have to feature scale because, the library that we are going to use will do it for us automatically.
-			☐ Model Generation:
-				☐ sklearn.ensemble
-					☐ RandomForestRegressor
+			- Model Generation:
+				- sklearn.ensemble
+					- RandomForestRegressor
 						Usage -
 						from sklearn.ensemble import RandomForestRegressor
 						regressor = RandomForestRegressor(n_estimators = 10) # parameter is the number of trees, more the better usually
 						regressor.fit(x,y)
-			☐ Visualizing the results:
+			- Visualizing the results:
 				We get more steps(splits) in each stair(training data points) compared to the basic decision tree model.
 				It is important to note that, even if we increase the number of trees, it doesn't mean that we will get more stairs in the graph. This is because, the more trees you add, the average is the converging to the same value, this is related to entropy and information gain.
 				Even though the number of stairs won't increase, the value of the stair will change depending on the number of trees.
 		https://medium.com/@rnbrown/creating-and-visualizing-decision-trees-with-python-f8e8fa394176 refer to this link for more on plotting decision tree models.
 
 	Evaluating Regression model performance @created(30-03-18 16:15):
-		☐ R-Squared Intuition:
+		- R-Squared Intuition:
 			Let us assume sum of squares of the residuals that we obtain from our model is SSres and sum of squares of difference with respect to the average line to be SStot, then R^2 is defined as 1-(SSres/SStot)
 			Importance of the R-Squared value is that, it tells us how good our prediction is. It usually lies between 0 and 1 (it can also be negative but if thats the case, its worse).
 			Higher the R^2 value, the accurate our model is.
-		☐ Adjusted R^2:
+		- Adjusted R^2:
 			If we notice from the R^2 formula, we can notice that SStot will not change depending on the number of variables, only variable is SSres. So, looking at SSres, we 	can notice that if we add a new variable, the new variable might have a relation with the prediction and we can get better results and increased R^2 value. But on the other hand, if the new variable is not relevant to the model, the SSres might not change, in which case R^2 wont change or our model will try to find some correlation (even though there isn't any) and SSres decreases and R^2 increases (which is not what we want, since we don't R^2 to increase when there's no relation between the variable and the prediction). That's when Adjusted R^2 comes to the rescue.
 									Adj R^2 = 1 - (1 - R^2)(n-1)/(n - p -1))
 									where p = number of regressors.
@@ -295,7 +295,7 @@ Regression:
       The way adjusted R^2 works is by, it penalizes us for adding independent variables that won't effect out model.
       So, in our analysis, instead of blindly following the steps of regression model, we also have to keep checking for the Adjusted R^2 values and make sure they increase too as we continue with the model
 
-    ☐ Interpreting Coefficients @created(31-03-18 23:09):
+    - Interpreting Coefficients @created(31-03-18 23:09):
       If the sign is positive, it means that if we increase the independent variable, the dependent variable also increases.
       We should be careful while interpreting the magnitudes of the coefficients. We can think of it like for a unit increase in the independent variable, there will a coefficient times increase in the dependent variable. Once we know the units of both independent and dependent variables, we can make a direct comparison between them.
 
@@ -314,31 +314,31 @@ Classification @created(31-03-18 23:10):
                                        ln(p/(1-p)) = b0 + b1*x
         this line is same as the line for linear regression line. This line will help us predict the probability of the dependent variable. Instead of saying yes/no for the dependent variable, our curves predicts the probability between 0/1. To get value of the dependent value instead of probability, we can assume a significant line (0.5 usually) and then assign value 0 to all those below the line and 1 for values above the line.
         Also, note that Logistic Regression is a linear classifier.
-        ☐ Preprocessing:
+        - Preprocessing:
             Similar to the previous regression models, we have to preprocess our data before we start building our model. Just to recap, we have to import the pandas, numpy and matplotlib libraries. Import the dataset. Prepare the training and testing datasets. Also feature scale if necessary.
             In this case, we have to apply feature scaling.
             That's it, we can start building our model.
 
-        ☐ Model Generation :
-            ☐ sklearn.linear_model
-                ☐ LogisticRegression
+        - Model Generation :
+            - sklearn.linear_model
+                - LogisticRegression
                     Usage-
                     from sklearn.linear_model import LogisticRegression
                     classifier = LogisticRegression()
                     classifier.fit(x_train, y_train)
-       ☐ Testing the model:
+       - Testing the model:
                        Now after the model is trained with the training datasets, we have to test it with the test dataset.
                        Code Snippet -
                          y_pred = classifier.predict(x_test)
-       ☐ Analyzing the results:
+       - Analyzing the results:
            So now that we have the predicted values, we can check if our model made the correct prediction by cross verifying them with the y_test values. This can be done by creating a confusion matrix.
-               ☐ Confusion Matrix
+               - Confusion Matrix
                    Usage -
                    from sklearn.metrics import confusion_matrix
                    cm = confusion_matrix(y_true, y_pred)
-       ☐ Visualizing the results:
+       - Visualizing the results:
            So we have to plot the predictions and analyze the results.
-           ☐ ListedColormap
+           - ListedColormap
                Usage-
                from matplotlib.colors import ListedColormap
            The way we plot our graph is,
@@ -367,24 +367,24 @@ Classification @created(31-03-18 23:10):
       3) Among the K neighbors, count the number of data points in each category.
       4) Assign the data point to the category where you counted the most neighbors.
       Model is ready!
-      ☐ Preprocessing:
+      - Preprocessing:
           Similar to the previous regression models, we have to preprocess our data before we start building our model. Just to recap, we have to import the pandas, numpy and matplotlib libraries. Import the dataset. Prepare the training and testing datasets. Also feature scale if necessary.
           In this case, we have to apply feature scaling.
           That's it, we can start building our model.
-      ☐ Model Generation:
-          ☐ sklearn.neighbors
-              ☐ KNeighborsClassifier
+      - Model Generation:
+          - sklearn.neighbors
+              - KNeighborsClassifier
                   Usage -
                   from sklearn.neighbors import KNeighborsClassifier
                   classifier = KNeighborsClassifier(n_neighbors = 5, metric = 'minkowski', p = 2)
                   classifier.fit(x_train, y_train)
-      ☐ Analyzing the results:
+      - Analyzing the results:
            So now that we have the predicted values, we can check if our model made the correct prediction by cross verifying them with the y_test values. This can be done by creating a confusion matrix.
-               ☐ Confusion Matrix
+               - Confusion Matrix
                    Usage -
                    from sklearn.metrics import confusion_matrix
                    cm = confusion_matrix(y_true, y_pred)
-      ☐ Visualizing the results:
+      - Visualizing the results:
            So we have to plot the predictions and analyze the results. Similar to the plot in Logistic regression, we generate the same graph and analyze the results.
       The important thing to note about this classifier is that, it is a non-linear  model. Hence, the boundary is not a straight line and we can separate the data which cannot be separated by linear model.
 
@@ -415,3 +415,42 @@ Classification @created(31-03-18 23:10):
       ☐ Visualizing the results:
            So we have to plot the predictions and analyze the results. Similar to the plot in Logistic regression, we generate the same graph and analyze the results.
       The important thing to note about this classifier is that, it is a linear  model. Hence, the boundary is a straight line.
+  Kernel SVM @created(06-04-18 12:08) :
+      This model is useful when we have a non-linear dataset and we don't have a linear boundary to separate the categories. The way this model works is by, we map the dataset to a higher dimension, make a linear boundary at that dimension and predict the category of the test values and then re-plot it back to lower dimension.
+      The problem with this model is that mapping to a higher dimension space can be highly compute-intensive.
+      - Kernel Trick:
+          To overcome the problem to Kernel SVM, compute-intensive, we can use Kernel Tricks.
+          - The Gaussian RBF Kernel:
+              K(x, li) = e ^ -(||x - li||)^2/(2*sigma^2)
+              If we plot the above graph, we can see a 3D plot that has a cone shape at the center (landmark, li). By using this function, we can draw a circle on our data set, where the value of the function if greater than 0 is inside the circle and function value equal to zero is on the outside of the circle. Hence we created our non-linear boundary.
+      - Types of kernel Function:
+          - Gaussian RBF Kernel.
+              K(x, li) = e ^ -(||x - li||)^2/(2*sigma^2)
+          - Sigmoid Kernel.
+              K(X,Y) = tanh(gamma * X^T * Y + r)
+          - Polynomial Kernel.
+          Read more about the different kernels available here (http://mlkernels.readthedocs.io/en/latest/kernels.html)
+
+      - Preprocessing:
+          Similar to the previous regression models, we have to preprocess our data before we start building our model. Just to recap, we have to import the pandas, numpy and matplotlib libraries. Import the dataset. Prepare the training and testing datasets. Also feature scale if necessary.
+          In this case, we have to apply feature scaling.
+          That's it, we can start building our model.
+
+      - Model Generation:
+          - sklearn.SVM
+              - SVC
+                  Usage -
+                  from sklearn.SVM import SVC
+                  classifier = SVC(kernel = 'rbf') # note that in previous case, we just use linear kernel, but non-linear Kernels are more powerful
+                  classifier.fit(x_train, y_train)
+      - Analyzing the results:
+               So now that we have the predicted values, we can check if our model made the correct prediction by cross verifying them with the y_test values. This can be done by creating a confusion matrix.
+                   - Confusion Matrix
+                       Usage -
+                       from sklearn.metrics import confusion_matrix
+                       cm = confusion_matrix(y_true, y_pred)
+      - Visualizing the results:
+          So we have to plot the predictions and analyze the results. Similar to the plot in Logistic regression, we generate the same graph and analyze the results.
+          The important thing to note about this classifier is that, it is a non-linear  model. Hence, the boundary is not a straight line and we can separate the data which cannot be separated by linear model.
+  Naive Bayes @created(06-04-18 12:47) :
+
