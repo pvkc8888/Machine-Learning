@@ -1,3 +1,11 @@
+#Machine Learning notes taken for the Machine Learning A-Z course on Coursera
+
+@created(x) =  date and time at which I wrote that topic.
+@critical = very important points
+@high = important points
+@low = something to note of.
+
+
 Preprocessing @created(21-03-18 20:43):
   In this category, I am going to write the functions, modules and classes that are used during preprocessing of the data.
 
@@ -335,7 +343,7 @@ Classification @created(31-03-18 23:10):
                - Confusion Matrix
                    Usage -
                    from sklearn.metrics import confusion_matrix
-                   cm = confusion_matrix(y_true, y_pred)
+                   cm = confusion_matrix(y_test, y_pred)
        - Visualizing the results:
            So we have to plot the predictions and analyze the results.
            - ListedColormap
@@ -383,7 +391,7 @@ Classification @created(31-03-18 23:10):
                - Confusion Matrix
                    Usage -
                    from sklearn.metrics import confusion_matrix
-                   cm = confusion_matrix(y_true, y_pred)
+                   cm = confusion_matrix(y_test, y_pred)
       - Visualizing the results:
            So we have to plot the predictions and analyze the results. Similar to the plot in Logistic regression, we generate the same graph and analyze the results.
       The important thing to note about this classifier is that, it is a non-linear  model. Hence, the boundary is not a straight line and we can separate the data which cannot be separated by linear model.
@@ -411,7 +419,7 @@ Classification @created(31-03-18 23:10):
                ☐ Confusion Matrix
                    Usage -
                    from sklearn.metrics import confusion_matrix
-                   cm = confusion_matrix(y_true, y_pred)
+                   cm = confusion_matrix(y_test, y_pred)
       ☐ Visualizing the results:
            So we have to plot the predictions and analyze the results. Similar to the plot in Logistic regression, we generate the same graph and analyze the results.
       The important thing to note about this classifier is that, it is a linear  model. Hence, the boundary is a straight line.
@@ -448,9 +456,50 @@ Classification @created(31-03-18 23:10):
                    - Confusion Matrix
                        Usage -
                        from sklearn.metrics import confusion_matrix
-                       cm = confusion_matrix(y_true, y_pred)
+                       cm = confusion_matrix(y_test, y_pred)
       - Visualizing the results:
           So we have to plot the predictions and analyze the results. Similar to the plot in Logistic regression, we generate the same graph and analyze the results.
           The important thing to note about this classifier is that, it is a non-linear  model. Hence, the boundary is not a straight line and we can separate the data which cannot be separated by linear model.
   Naive Bayes @created(06-04-18 12:47) :
+      - Bayes Theorem:
+          P(A|B) = P(B|A) * P(A) /P(B)
+          Probability (A given B) = Probability (B given A) * probability(A) / Probability(B)
+      - Naive Bayes Intuition :
+          - STEP 1:
+              P(category 1| X) = P(X| category 1) * P(category 1) / P(X)
+              Here,
+              P(category 1) = Prior Probability (can be calculated from the dataset observations)
+              P(X) = Marginal Likelihood (can be calculated by drawing a circle in our dataset around the test value and count the number of observations in that circle and then find marginal probability, important to note that the radius that we choose, will have a huge impact on our answers.)
+              P(X|category 1) = Likelihood ( can be calculated by drawing the same circle as above and counting the number of points in that circle that belong to category 1 and hence finding the likelihood)
+              P(category 1| X) = Posterior Probability (use above calculated values to find the probability)
+          - STEP 2:
+              P(category 2| X) = P(X| category 2) * P(category 2) / P(X)
+              Similar to the step 1, calculate probability for category 2.
+          - STEP 3:
+              compare the two probabilities that we obtained in the above steps and choose the one that has the higher probability.
+          It can also be noted that P(X) won't change in both the cases and thus need not be calculated if we are just comparing the two probabilities. @high
+      - Why Naive:
+          If we go back to Bayes Theorem, the condition required is that the two variables should be independent with respect to each other. But in general, this Naive Bayes model is applied to datasets where the variables are not independent. Hence, the name Naive.
+      - Preprocessing:
+          Similar to the previous regression models, we have to preprocess our data before we start building our model. Just to recap, we have to import the pandas, numpy and matplotlib libraries. Import the dataset. Prepare the training and testing datasets. Also feature scale if necessary.
+          In this case, we have to apply feature scaling.
+          That's it, we can start building our model.
 
+      - Model Generation:
+          - sklearn.naive_bayes
+              - GaussianNB
+                  Usage -
+                  from sklearn.SVM import SVC
+                  classifier = GaussianNB() # doesn't have any parameters.
+                  classifier.fit(x_train, y_train)
+      - Analyzing the results:
+           y_pred = classifier.predict(X_test)
+           So now that we have the predicted values, we can check if our model made the correct prediction by cross verifying them with the y_test values. This can be done by creating a confusion matrix.
+                   - Confusion Matrix
+                       Usage -
+                       from sklearn.metrics import confusion_matrix
+                       cm = confusion_matrix(y_test, y_pred)
+      - Visualizing the results:
+          So we have to plot the predictions and analyze the results. Similar to the plot in Logistic regression, we generate the same graph and analyze the results.
+          The important thing to note about this classifier is that, it is a non-linear  model. Hence, the boundary is not a straight line and we can separate the data which cannot be separated by linear model.
+          Also the curve is a smooth one, won't have many irregularities.
