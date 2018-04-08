@@ -592,4 +592,48 @@ Classification @created(31-03-18 23:10):
              response rate 70%<x<80% good model
              response rate 80%<x<90% very good model
              response rate 90%<x<100% too model (we should be careful about over fitting in this case.)
+Clustering @created(08-04-18 15:39) :
+	Clustering is similar to classification, but the basis is different. In Clustering you don’t know what you are looking for, and you are trying to identify some segments or clusters in your data. When you use clustering algorithms on your dataset, unexpected things can suddenly pop up like structures, clusters and groupings you would have never thought of otherwise.In this part, you will understand and learn how to implement the following Machine Learning Clustering models
+	- K-Means Clustering @created(08-04-18 16:05)
+		steps involved -
+		1) choose the number K of clusters.\
+		2) Select at random K points, the centroids (they need not be from your dataset)
+		3) Assign each data point to the closest centroid and this forms K clusters.
+		4) Now compute and place the new centroid of each cluster.
+		5) Reassign new data point to the closest centroid.
+		   If any rearrangement took place, go back to step 4, otherwise model is ready!
+		Random Initialization Trap -
+			When we have a bad random initial centroids, the clusters that we get might be different from what we might expect. Hence, to avoid that, we can use K-means++ algorithm. Read more about it. We don't have to manually implement it as python does it in the background. @low
+		Selecting the number of clusters -
+			The way we choose number of clusters for our problem is by calculating WCSS (within cluster sum of squares)
+			As we can see that as the number of clusters increases, the WCSS decreases. So the optimal number can be chosen by The Elbow Method. Basically, when the change in WCSS is not so large.
+		- Preprocessing:
+			Similar to previous cases, we have to first import the dataset, essential libraries and make variables that contain the data that we are going to work with.
+		- Find number of optimal clusters:
+			We have to first find the number of optimal clusters. We can do that by using the elbow method.
+			- sklearn.cluster
+				- KMeans
+					Usage-
+					from sklearn.cluster import KMeans
+					wcss = []
+					for i in range(1, 11)
+						Kmeans = KMeans(n_clusters = i, init = 'K-means++', max_iter = 300, n_init = 10)
+						Kmeans.fit(X)
+						wcss.append(kmeans.inertia_)
+			- Plot the wcss list and decide the number of clusters.
+				plt.plot(range(1,11), wcss)
+		- Final cluster
+			Once the number of clusters is decided, we can generate the y_kmeans vector that contains the value of the cluster that each variable belongs to.
+			Kmeans = KMeans(n_clusters = 5, init = 'K-means++', max_iter = 300, n_init = 10)
+			y_kmeans = kmeans.fit_predict(X)
+		- Plot the final cluster
+			plt.scatter(X[y_kmeans = 0, 0], X[y_kmeans = 0, 1], s = 100, c = 'red', label = 'cluster 1')
+			similarly plot all other clusters.
+		And that's it, KMeans clustering is done and ready!
+
+    - Hierarchical Clustering @created(08-04-18 17:37)
+
+
+
+
 
