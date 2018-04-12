@@ -631,8 +631,28 @@ Clustering @created(08-04-18 15:39) :
 			similarly plot all other clusters.
 		And that's it, KMeans clustering is done and ready!
 
-    - Hierarchical Clustering @created(10-04-18 17:37)
-
+    - Hierarchical Clustering @created(12-04-18 12:10) :
+    	This is another type of clustering algorithm used to cluster data. Even though the results that you get from this model might be similar to the ones using K-means Clustering, the method that we follow to get the results are different.
+    	There are two types of approaches,
+    	1) Agglomerative
+    	2) Divisive
+    	Steps to follow -
+    		1) Make each data point a single-point cluster, this forms n-clusters.
+    		2) Take the two closest data points and make them one cluster- that forms n-1 clusters.
+    		3) Take the two closest clusters and make them one cluster, this makes n-2 clusters.
+    		4) Repeat Step 3 until there is only one cluster.
+    		Model is ready!
+    	Note that the way we calculate distance between the clusters is our choice, we can say it's the distance between nearest points, farthest points, centroids of the clusters, average distances between the cluster. So it's up to us to choose correct distance method for our particular case. @high
+    	Dendograms - Dendograms are plots that are generated during Hierarchical clustering. read more about them here (https://en.wikipedia.org/wiki/Dendrogram)
+    	How are Dendograms useful -
+    	We can set the dissimilarity level and ask the algorithm to not join clusters if their dissimilarity level is more than the value we specified.
+    	- Preprocessing :
+    		Similar to previous cases, we have to first import the dataset, essential libraries and make variables that contain the data that we are going to work with.
+    	- generating Dendograms:
+    		- scipy.cluster.hierarchy
+    			Usage -
+    			import scipy.cluster.hierarchy as sch
+    			dendogram = sch.dendogram(sch.linkage(X, method = 'ward'))
 
 
 
