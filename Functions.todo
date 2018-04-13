@@ -653,6 +653,48 @@ Clustering @created(08-04-18 15:39) :
     			Usage -
     			import scipy.cluster.hierarchy as sch
     			dendogram = sch.dendogram(sch.linkage(X, method = 'ward'))
+    		we can then plot dendogram using plt.
+    	- Generating Clusters:
+    		- sklearn.cluster
+    			- AgglomerativeClustering
+    				Usage -
+    				from sklearn.cluster import AgglomerativeClustering
+    				hc = AgglomerativeClustering(n_clusters = 5, affinity = 'euclidean', linkage = 'ward')
+    				y_hc = hc.fit_predict(X)
+    	- Visualizing the results:
+    		Similar to K-Means clustering plot, we plot the Hierarchical clustering in the same way.
+    		plt.scatter(X[y_kmeans = 0, 0], X[y_kmeans = 0, 1], s = 100, c = 'red', label = 'cluster 1')
+			similarly plot all other clusters.
+Association Rule Learning @created(12-04-18 13:22) :
+	People who bought also bought ... That is what Association Rule Learning will help us figure out!In this part, you will understand and learn how to implement the following Association Rule Learning models -
+    Apriori
+    Eclat
+    - Apriori @created(12-04-18 18:06):
+    	The following steps are involved in the Apriori algorithm,
+    	1) Set a minimum support and confidence
+    	2) Take all the subsets in transactions having support greater than the minimum support.
+    	3) Take all the rules of these subsets having confidence higher than the minimum confidence
+    	4) Sort the rules by decreasing fit.
+    	Note that Apriori is just any other Association rule learning model. There are many other efficient models.
+    	- Preprocessing:
+    		Import the modules numpy, pandas, matplotlib and the data set.
+    		And set header = None if there are no headers.
+    		Also, the Apriori function requires data in the form of list of lists. Hence, we have to first generate the data in the required format.
+    		for i in range()
+    			transactions.append([str(dataset.values(i,j)) for j in range()])
+    		Now we have transaction list which is a list of lists, containing all the transactions in a string format.
+    	- Generating the model:
+    		- Apriori
+    			from apyori import apriori
+    			rules = apriori(transactions, min_support = , min_confidence = , min_lift= , min_length = 2)
+
+    			set the parameters according to the business model.
+    	- Observing the results:
+    		list(rules)
+    		will display the rules in decreasing order automatically.
+    - Eclat @created(13-04-18 18:06):
+
+
 
 
 
