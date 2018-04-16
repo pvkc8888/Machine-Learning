@@ -692,7 +692,13 @@ Association Rule Learning @created(12-04-18 13:22) :
     	- Observing the results:
     		list(rules)
     		will display the rules in decreasing order automatically.
+
     - Eclat @created(13-04-18 18:06):
+    	Similar to apriori model, used to make association rules
+    	Steps involved-
+    	1) Set a minimum support
+    	2) Take all the subsets in the transactions having support higher than the minimum support.
+    	3) Sort these subsets by decreasing support.
 
 
 
