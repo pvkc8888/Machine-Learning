@@ -699,6 +699,13 @@ Association Rule Learning @created(12-04-18 13:22) :
     	1) Set a minimum support
     	2) Take all the subsets in the transactions having support higher than the minimum support.
     	3) Sort these subsets by decreasing support.
+Reinforcement learning @created(15-04-18 20:54) :
+	Reinforcement Learning is a branch of Machine Learning, also called Online Learning. It is used to solve interacting problems where the data observed up to time t is considered to decide which action to take at time t + 1. It is also used for Artificial Intelligence when training machines to perform tasks such as walking. Desired outcomes provide the AI with reward, undesired with punishment. Machines learn through trial and error.
+	Two types of Reinforcement learning -
+    	Upper Confidence Bound (UCB)
+    	Thompson Sampling
+
+
 
 
 
