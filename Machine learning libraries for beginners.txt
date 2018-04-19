@@ -10,3 +10,5 @@
 10. Keras - https://keras.io/
 
 Bonus: seaborn - https://lnkd.in/gCVzV_8
+
+More details will be added soon.
