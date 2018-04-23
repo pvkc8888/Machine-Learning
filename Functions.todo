@@ -700,10 +700,101 @@ Association Rule Learning @created(12-04-18 13:22) :
     	2) Take all the subsets in the transactions having support higher than the minimum support.
     	3) Sort these subsets by decreasing support.
 Reinforcement learning @created(15-04-18 20:54) :
-	Reinforcement Learning is a branch of Machine Learning, also called Online Learning. It is used to solve interacting problems where the data observed up to time t is considered to decide which action to take at time t + 1. It is also used for Artificial Intelligence when training machines to perform tasks such as walking. Desired outcomes provide the AI with reward, undesired with punishment. Machines learn through trial and error.
+	Reinforcement Learning is a branch of Machine Learning, also called online Learning. It is used to solve interacting problems where the data observed up to time t is considered to decide which action to take at time t + 1. It is also used for Artificial Intelligence when training machines to perform tasks such as walking. Desired outcomes provide the AI with reward, undesired with punishment. Machines learn through trial and error.
+	Problem statement-
+		We have d arms, arms are the ads that we display to users each time they connect to a web page.
+    	Each time a user connects to this web page, that makes a round.
+    	At each round n, we choose one ad to display to the user.
+    	At each round n, ad i gives a reward ri(n) = [0, 1], where ri = 0, if the user didn't click the ad and 1 if the user did click on the ad.
+    	Our goal is to maximize the total reward we get over many rounds.
 	Two types of Reinforcement learning -
     	Upper Confidence Bound (UCB)
     	Thompson Sampling
+    - Upper Confidence Bound:
+    	- How this works:
+    		Step 1 -
+	    		At each round n, we consider two numbers for each ad i -
+	    			Ni(n) - the number of times the ad i was selected up to round n
+	    			Ri(n) - the sum of rewards of the ad i up to round n
+    		Step 2 -
+    			From these two numbers we compute -
+    				The average reward of ad i up to round n
+    				The confidence interval at round n
+    		Step 3 -
+    			We select the ad i that has the maximum UCB
+    	This method is advanced because the algorithm depends on the results of the previous rounds for the next round. hence we can maximize our rewards as we go.
+    	- Preprocessing:
+    		Similar to previous cases, we have to first import the dataset, essential libraries and make variables that contain the data that we are going to work with.
+    	- implementation:
+    		number_of_selections = [0] * d
+    		sums_of_rewards = [0] * d
+    		ads_selected = []
+    		N = 10000
+    		d = 10
+    		total_reward = 0
+    		for n in range(N):
+    			ad = 0
+    			max_upper_bound = 0
+    			for i in range(0, d):
+    				if (number_of_selections[i] > 0):
+	    				average_reward = sums_of_rewards[i]/number_of_selections[i]
+	    				delta_i = math.sqrt(3/2 * math.log(n + 1) / number_of_selections[i])
+	    				upper_bound = average_reward + delta_i
+	    			else:
+	    				upper_bound = 1e400
+    				if upper_bound > max_upper_bound:
+    					max_upper_bound = upper_bound
+    					ad = i
+    			ads_selected.append(ad)
+    			number_of_selections[ad] += 1
+    			reward = dataset.values[n, ad]
+    			sums_of_rewards[ad] += reward
+    			total_reward += reward
+    	- Summary:
+    		So the way this algorithm works is by generating the dataset simultaneously as its working. The dataset we had in the case above is just a simulation data which will help us understand the concept of UCB. I think I understand it properly now.
+    - Thompson 	Sampling @created(21-04-18 23:21):
+    	Step 1:
+    		At each round n, we consider two numbers for each ad i-
+    			N1i(n) - the number of times the ad i got reward 1 up to round n,
+    			N0i(n) - the number of times the ad i got reward 0 up to round n.
+    	Step 2:
+    		For each ad i, we take a random draw from the distribution below
+    		theta(n) = Beta(N1i(n)) + 1,N0i(n) + 1)
+    	Step 3:
+    		We select the ad that has the highest theta(n)
+    	- Preprocessing:
+    		Similar to previous cases, we have to first import the dataset, essential libraries and make variables that contain the data that we are going to work with.
+    	- implementation:
+    		number_of_rewards_1 = [0] * d
+    		number_of_rewards_0 = [0] * d
+    		ads_selected = []
+    		N = 10000
+    		d = 10
+    		total_reward = 0
+    		for n in range(N):
+    			ad = 0
+    			max_random = 0
+    			for i in range(0, d):
+    				random_beta = random.betavariate(number_of_rewards_1[i] + 1, number_of_rewards_0[i] + 1)
+    				if random_beta > max_random:
+    					max_random = random_beta
+    					ad = i
+    			ads_selected.append(ad)
+    			reward = dataset.values[n, ad]
+    			if reward == 1:
+    				number_of_rewards_1[ad]+= 1
+    			else:
+    				number_of_rewards_0[ad] += 1
+    			total_reward += reward
+    UCB vs Thompson:
+    	UCB is a deterministic algorithm.
+    	UCB requires update at every round.
+    	Thompson sampling is a probabilistic algorithm.
+    	Thompson sampling can accommodate delayed feedback.
+    	Also Thompson Sampling model has better empirical evidence.
+
+
+
 
 
 
