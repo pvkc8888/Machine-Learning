@@ -846,4 +846,130 @@ Natural Language Processing @created(24-04-18 10:46) :
     		this object also takes parameters to clean the data, but its better to clean on our own for more flexibility.
     		X = cv.fit_transform(corpus).toarray()
     		y = dataset.iloc[:, 1].values
+    - Model Generation:
+    	similar to classification models, we can use the similar code on our bag of words model.
+    	Mostly Naive Bayes and Decision Trees are used for NLP.
+    Other good models for NLP are CART, C5.0, Maximum entropy. @high
+    Steps to check the the model value @critical
+    Accuracy = (TP + TN) / (TP + TN + FP + FN)
 
+	Precision = TP / (TP + FP)
+
+	Recall = TP / (TP + FN)
+
+	F1 Score = 2 * Precision * Recall / (Precision + Recall)
+Deep learning @created(24-04-18 22:18):
+	Artificial Neural networks @created(24-04-18 22:18):
+		Topics covered in this section-
+			The Neuron
+			The Activation function
+			How do neural networks work
+			How do neural networks learn
+			Gradient Descent
+			Stochastic Gradient Descent
+			Back propagation
+		- The Neuron:
+			The basic building blocks of Neural networks.
+			Have dendrites, axons and the connection between two neurons is called synapses.
+			In tech, we recreate this model by input values, neuron, and output value.
+			Input values are independent variables. We have to standardize/normalize them.
+			Output value can be numerical, binary, categorical.
+			Synapses are assigned weights, they are crucial and the backbone for this algorithm, the model will keep updating the weights and decide if the input signal is important or not.
+			The first step in the neuron is summing up all the input variables times their respective weights. Next, the sum calculated is used in an activation function. last step is the signal forwarded to the next neuron down the line.
+
+		- The Activation Function:
+			There are many types of activation functions
+			1) Threshold function
+			2) Sigmoid Function
+			3) Rectifier Function @high
+			4) Hyperbolic Tangent function
+			We can make use of multiple functions in different layers before generating the output.
+
+		- How do NNs Work:
+			From the video what I learned is that, the way neural networks work is by making a hidden layer which contains combinations of input variables and then send the values are the input to the next layer or to the output calculation.
+
+		- How to NNs learn:
+			neural network that has only one layer is called a perceptron.
+			So basically how they learn is that, they use the input variables and assign weights to them and calculate the dependent variable. Then cost function is calculated and our goal is to minimize the cost function. Hence, the output from the cost function is sent back into the neural network to update the weights and make predictions again. This is called back propagation.
+			A list of cost functions that are popular can be found here (https://stats.stackexchange.com/questions/154879/a-list-of-cost-functions-used-in-neural-networks-alongside-applications)
+
+		- Gradient Descent:
+			So we need this to find the weights efficiently. Of course, we can brute force and find the best possible weights for given variable. But as the number of variables increases, we face the problem of Curse of Dimensionality. Hence we approach this problem by gradient Descent, i.e., we check the gradient at the point and check if it's uphill or downhill and make a better prediction.
+
+		- Stochastic gradient Descent:
+			So we need this because it may happen that the cost function that we chose may not be convex, i.e., there may be local minimum and global minimum. In this method, the weights are updated after every row rather than every round which is the case in batch gradient Descent. This is much faster compared to batch gradient descent.
+			more about gradient descent here (https://iamtrask.github.io/2015/07/27/python-network-part2/)
+
+		- Back Propagation:
+			The main importance of back propagation is that all the weights can be adjusted simultaneously.
+		Summary:
+			1) Randomly initialize the weights to small numbers close to 0 (but not 0)
+			2) Input the first observation of your dataset in the input layer, each feature in one input node.
+			3) Forward-Propagation: from left to right, the neurons are activated in a way that the impact of each neurons' activation is limited by weights. Propagate the activations until getting the predicted result y.
+			4) Compare the predicted result to the actual result. Measure the generated error.
+			5) Back Propagation: from left to right, the error is back propagated. Update the weights according to how much they are responsible for the error. The learning rate decides by how much we update the weights.
+			6) Repeat steps 1 to 5 and update the weights after each observation (reinforcement learning) or repeat steps 1 to 5 and update the weights only after a batch of observations (Batch learning)
+			7) When the whole training set passed through the ANN, that makes an epoch. Redo more epochs.
+		libraries needed for this section-
+			1) Theano
+				It is numerical computation library that will help to do multiple parallel computations on both GPU and CPU.
+			2) Tensor Flow
+				It is numerical computation library that will help to do multiple parallel computations on both GPU and CPU. developed by Google.
+			The above two are developer libraries which can be used to generate neural networks from scratch.
+			3) keras
+				This library combines the above two mentioned libraries to build deep learning models.
+		- Preprocessing:
+			Similar to classification or regression models, we have to import libraries and datasets and test and train data.
+			Usage -
+				import numpy as np
+				import matplotlib.pyplot as plt
+				import pandas as pd
+				dataset = pd.read_csv('Churn_Modelling.csv')
+				X = dataset.iloc[:, 3:13].values
+				y = dataset.iloc[:, 13].values
+			Encode the categorical variables if there are any.
+			from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+			labelencoder_X_1 = LabelEncoder()
+			X[:, 1] = labelencoder_X_1.fit_transform(X[:, 1])
+			labelencoder_X_2 = LabelEncoder()
+			X[:, 2] = labelencoder_X_2.fit_transform(X[:, 2])
+			onehotencoder = OneHotEncoder(categorical_features = [1])
+			X = onehotencoder.fit_transform(X).toarray()
+			X = X[:, 1:] # this is to avoid the dummy variable trap.
+
+			- Test and train data:
+				from sklearn.model_selection import train_test_split
+				X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
+
+			- Feature scaling:
+			It is very important to do feature scaling in this model.
+				rom sklearn.preprocessing import StandardScaler
+				sc = StandardScaler()
+				X_train = sc.fit_transform(X_train)
+				X_test = sc.transform(X_test)
+		- Model Generation:
+			-Import the libraries and modules
+				import keras
+				from keras.models import Sequential
+				from keras.layers import Dense
+			- Initializing the ANN:
+				classifier = Sequential()
+			- Adding the input and first hidden layer.
+				classifier.add(Dense(output_dim = 6, init = 'uniform', activation ='relu', input_dim = 11)
+			- Adding second hidden layer.
+				classifier.add(Dense(output_dim = 6, init = 'uniform', activation ='relu')
+			- Adding the output layer
+				classifier.add(Dense(output_dim = 1, init = 'uniform', activation = 'sigmoid'))
+				if our dependent variable has more than one category, we have to change the output_dim to the number of categories and activation to Soft max?
+
+			- Compiling the ANN
+				classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
+				if more than one category, replace binary_crossentropy with categorical_crossentropy
+
+			- Fitting the ANN to the Training set
+				classifier.fit(X_train, y_train, batch_size = 10, nb_epoch = 100)
+		- Making the predictions and evaluating the model:
+			y_pred = classifier.predict(X_test)
+			y_pred = (y_pred > 0.5)
+			from sklearn.metrics import confusion_matrix
+			cm = confusion_matrix(y_test, y_pred)
