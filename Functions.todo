@@ -792,14 +792,58 @@ Reinforcement learning @created(15-04-18 20:54) :
     	Thompson sampling is a probabilistic algorithm.
     	Thompson sampling can accommodate delayed feedback.
     	Also Thompson Sampling model has better empirical evidence.
+Natural Language Processing @created(24-04-18 10:46) :
+	Natural Language Processing (or NLP) is applying Machine Learning models to text and language. Teaching machines to understand what is said in spoken and written word is the focus of Natural Language Processing. Whenever you dictate something into your iPhone / Android device that is then converted to text, that’s an NLP algorithm in action.
 
+	You can also use NLP on a text review to predict if the review is a good one or a bad one. You can use NLP on an article to predict some categories of the articles you are trying to segment. You can use NLP on a book to predict the genre of the book. And it can go further, you can use NLP to build a machine translator or a speech recognition system, and in that last example you use classification algorithms to classify language. Speaking of classification algorithms, most of NLP algorithms are classification models, and they include Logistic Regression, Naive Bayes, CART which is a model based on decision trees, Maximum Entropy again related to Decision Trees, Hidden Markov Models which are models based on Markov processes.
 
+	A very well-known model in NLP is the Bag of Words model. It is a model used to preprocess the texts to classify before fitting the classification algorithms on the observations containing the texts.
 
+	In this part, you will understand and learn how to:
 
-
-
-
-
-
-
+   		Clean texts to prepare them for the Machine Learning models,
+    	Create a Bag of Words model,
+    	Apply Machine Learning models onto this Bag of Worlds model.
+    - Preprocessing:
+    	We have to prepare the data before applying the model. In this model, we need tsv files, tab separated values instead of csv because there might be commas in the text.
+    	dataset = pd.read_csv('filename', delimiter = '\t', quoting = 3) to ignore quotes
+    - Cleaning the texts:
+    	We use regex to clean the texts.
+    	removing all the non alphabetic characters.
+    	Usage-
+    		import re
+    		review = re.sub('[a-zA-Z]',' ', dataset['review'][0])
+    	converting all the characters to lower case.
+    		review = review.lower()
+    	removing prepositions
+    		Usage-
+    			import nltk
+    			nltk.download('stopwords')
+    			from nltk.corpus import stopwords
+    			review = review.split()
+    			review = [word for word in review if not word in set(stopwords.words('english')) ]
+    	Stemming, taking the root of the words. like loved, love, loving will all be the same word love. This is to reduce the dimension of the sparsity matrix
+    		Usage-
+    			from nltk.stem.porter import PorterStemmer
+    			ps = PorterStemmer()
+    			review = [ps.stem(word) for word in review if not word in set(stopwords.words('english')) ]
+    	joining back to one string
+    		review = ''.join(review)
+    	Do the above steps for all the items in the dataset.
+    		corpus = []
+    		for i in range(1000):
+    			review = re.sub('[a-zA-Z]',' ', dataset['review'][0])
+    			review = review.lower()
+    			review = review.split()
+    			review = [ps.stem(word) for word in review if not word in set(stopwords.words('english')) ]
+    			review = ''.join(review)
+    			corpus.append(review)
+    - Bag of words model:
+    	Its like a really big matrix called sparse matrix, which will contains all the unique words as columns and all the items in dataset as columns.
+    	Usage-
+    		from sklearn.feature_extraction.text import CountVectorizer
+    		cv = CountVectorizer(max_features = 1500)
+    		this object also takes parameters to clean the data, but its better to clean on our own for more flexibility.
+    		X = cv.fit_transform(corpus).toarray()
+    		y = dataset.iloc[:, 1].values
 
