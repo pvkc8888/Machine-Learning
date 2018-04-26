@@ -974,96 +974,198 @@ Deep learning @created(24-04-18 22:18):
 			from sklearn.metrics import confusion_matrix
 			cm = confusion_matrix(y_test, y_pred)
 
-	Convolution Neural networks @created(25-04-18 00:50):
-	Topics covered in this section-
+	Convolution Neural networks @created(25-04-18 22:50):
+		Topics covered in this section-
 		What are Convolution Neural networks
 		Convolution Operation
 		ReLu Layer
 		Pooling
 		Flattening
 		Full Connection
-	- What are Convolution Neural networks:
-		Image recognition is mainly Convolution Neural networks. Yann Lecun is considered the God Father of CNN.
-		Input image - CNN - Image classification.
-		Refer to this paper for more info on CNN (http://yann.lecun.com/exdb/publis/pdf/lecun-98.pdf)
-	- Convolution:
-		Some integral formula know as Convolution that I am not gonna write here. But refer to this paper for more info (https://cs.nju.edu.cn/wujx/teaching/15_CNN.pdf)
+		- What are Convolution Neural networks:
+			Image recognition is mainly Convolution Neural networks. Yann Lecun is considered the God Father of CNN.
+			Input image - CNN - Image classification.
+			Refer to this paper for more info on CNN (http://yann.lecun.com/exdb/publis/pdf/lecun-98.pdf)
+		- Convolution:
+			Some integral formula know as Convolution that I am not gonna write here. But refer to this paper for more info (https://cs.nju.edu.cn/wujx/teaching/15_CNN.pdf)
 
-		Input image (x) Feature Detector = Feature Map
-		The take away is that Convolution is to find features in your image using feature detector and put them in a feature map and still preserves spatial relationships between the image. Most of the time the features that the neural network detects might not be legible by humans but, it works!
+			Input image (x) Feature Detector = Feature Map
+			The take away is that Convolution is to find features in your image using feature detector and put them in a feature map and still preserves spatial relationships between the image. Most of the time the features that the neural network detects might not be legible by humans but, it works!
 
-	- ReLU Layer:
-		A rectifier layer is used to apply non-linearity to the model and rectifier does that job perfectly.
-		more about why non-linearity can be found here (https://arxiv.org/pdf/1609.04112v1.pdf)
+		- ReLU Layer:
+			A rectifier layer is used to apply non-linearity to the model and rectifier does that job perfectly.
+			more about why non-linearity can be found here (https://arxiv.org/pdf/1609.04112v1.pdf)
 
-	- Max Pooling:
-		We need pooling to introduce a level of flexibility in our cnn. This is to allow our model to detect features even if they are oriented/ located in a different location.
-		We split the feature map into 2x2 (depends) grid and select the maximum value in that grid and generate a Pooled Feature map.
-		The advantage of a Pooled Feature Map is that, we can allow spatial flexibility and reduce the size of the image which is very important to make the model perform more quickly.
-		It also reduces over fitting.
-		This paper (http://www.ais.uni-bonn.de/papers/icann2010_maxpool.pdf) is a must read @critical
-		check this out (scs.ryerson.ca/~aharley/vis/conv/flat.html)
+		- Max Pooling:
+			We need pooling to introduce a level of flexibility in our cnn. This is to allow our model to detect features even if they are oriented/ located in a different location.
+			We split the feature map into 2x2 (depends) grid and select the maximum value in that grid and generate a Pooled Feature map.
+			The advantage of a Pooled Feature Map is that, we can allow spatial flexibility and reduce the size of the image which is very important to make the model perform more quickly.
+			It also reduces over fitting.
+			This paper (http://www.ais.uni-bonn.de/papers/icann2010_maxpool.pdf) is a must read @critical
+			check this out (scs.ryerson.ca/~aharley/vis/conv/flat.html)
 
-	- Flattening:
-		Flattening is done to convert the pooling Map into a vector column which is the input layer of a future ANN.
+		- Flattening:
+			Flattening is done to convert the pooling Map into a vector column which is the input layer of a future ANN.
 
-	- Full Connection:
-		So now that we have the input data from flattening the pooling map, we can send it to the Full connected layer where all the nodes are interconnected with each other. These hidden input layers will send a vote to the output layer which will then calculate the errors and losses and adjust the weights after many iterations. Depending on the votes and weights the final prediction is made. trained by forward propagation and backward propagation
+		- Full Connection:
+			So now that we have the input data from flattening the pooling map, we can send it to the Full connected layer where all the nodes are interconnected with each other. These hidden input layers will send a vote to the output layer which will then calculate the errors and losses and adjust the weights after many iterations. Depending on the votes and weights the final prediction is made. trained by forward propagation and backward propagation
 
-	- Summary:
-		Input image - Convolution layer, RelU layer - Pooling layer - Flattening - ANN - Prediction.
-		More on Deep learning CNN here (https://adeshpande3.github.io/adeshpande3.github.io/The-9-Deep-Learning-Papers-You-Need-To-Know-About.html)
+		- Summary:
+			Input image - Convolution layer, RelU layer - Pooling layer - Flattening - ANN - Prediction.
+			More on Deep learning CNN here (https://adeshpande3.github.io/adeshpande3.github.io/The-9-Deep-Learning-Papers-You-Need-To-Know-About.html)
 
-	- Softmax and Cross-Entropy:
-		Softmax function is applied on to the output classifiers to reduce them to a value between 0 and 1 which will add up to 1
-		Cost function analogy in cnn is loss function.
-		Cross-Entropy is used to choose the best neural network, by calculating the loss of each NN.
-		It is better than MSE because it has log function in it and it will boost the gradient descent more than MSE.
-		Cross-Entropy is more useful for classification and MSE is better for regression NN.
-		more on Cross-Entropy here (https://rdipietro.github.io/friendly-intro-to-cross-entropy-loss/)
+		- Softmax and Cross-Entropy:
+			Softmax function is applied on to the output classifiers to reduce them to a value between 0 and 1 which will add up to 1
+			Cost function analogy in cnn is loss function.
+			Cross-Entropy is used to choose the best neural network, by calculating the loss of each NN.
+			It is better than MSE because it has log function in it and it will boost the gradient descent more than MSE.
+			Cross-Entropy is more useful for classification and MSE is better for regression NN.
+			more on Cross-Entropy here (https://rdipietro.github.io/friendly-intro-to-cross-entropy-loss/)
 
-	- Preprocessing:
-		Since, we are dealing with images in this model, we can no longer use csv files to store out independent and dependent variables. One solution to this is to structure our dataset in form of folders containing training set and test set which contain different folders of output categories and use keras to input this dataset.
-		This will make the dataset ready for training our model.
-		All we have to do is apply feature scaling
-		Libraries needed -
-			from keras.models import Sequential
-			used to initialize the NN
-			from keras.layers import Convolution2D
-			for making the Convolution step
-			from keras.layers import MaxPooling2D
-			for pooling layers
-			from keras.layers import Flatten
-			for flattening the pooling maps.
-			from keras.layers import Dense
-			to create the ANN
+		- Preprocessing:
+			Since, we are dealing with images in this model, we can no longer use csv files to store out independent and dependent variables. One solution to this is to structure our dataset in form of folders containing training set and test set which contain different folders of output categories and use keras to input this dataset.
+			This will make the dataset ready for training our model.
+			All we have to do is apply feature scaling
+			Libraries needed -
+				from keras.models import Sequential
+				used to initialize the NN
+				from keras.layers import Convolution2D
+				for making the Convolution step
+				from keras.layers import MaxPooling2D
+				for pooling layers
+				from keras.layers import Flatten
+				for flattening the pooling maps.
+				from keras.layers import Dense
+				to create the ANN
 
-	- Initializing the CNN:
-		classifier = Sequential()
+		- Initializing the CNN:
+			classifier = Sequential()
 
-	- Convolution:
-		classifier.add(Convolution2D(32, 3, 3, input_shape = (64, 64, 3), activation = 'relu'))
-		here
-		32 = number of filter layers
-		3 = numbers of rows in filter layer
-		3 = numbers of columns in filter layer
-		64, 64 = size of the input image
-		3 = color image, use 1 if b/w image
-		also change the format to (3, 64, 64) if using Theano background.
+		- Convolution:
+			classifier.add(Convolution2D(32, 3, 3, input_shape = (64, 64, 3), activation = 'relu'))
+			here
+			32 = number of filter layers
+			3 = numbers of rows in filter layer
+			3 = numbers of columns in filter layer
+			64, 64 = size of the input image
+			3 = color image, use 1 if b/w image
+			also change the format to (3, 64, 64) if using Theano background.
 
-	- Pooling:
-		classifier.add(MaxPooling2D(pool_size = (2, 2)))
+		- Pooling:
+			classifier.add(MaxPooling2D(pool_size = (2, 2)))
 
-	- Flattening:
-		classifier.add(Flatten())
+		- Flattening:
+			classifier.add(Flatten())
 
-	- Full connection:
-		classifier.add(Dense(output_dim = 128, activation = 'relu'))
-		classifier.add(Dense(output_dim = 1, activation = 'sigmoid'))
+		- Full connection:
+			classifier.add(Dense(output_dim = 128, activation = 'relu'))
+			classifier.add(Dense(output_dim = 1, activation = 'sigmoid'))
 
-	- Compiling the CNN:
-		classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
+		- Compiling the CNN:
+			classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
 
-	- Fitting the CNN to the images.
-		Data augmentation is done to get better results when we have less data and want to avoid over-fitting.
-		refer to this documentation link for more info on this section (https://keras.io/preprocessing/image/)
+		- Fitting the CNN to the images.
+			Data augmentation is done to get better results when we have less data and want to avoid over-fitting.
+			refer to this documentation link for more info on this section (https://keras.io/preprocessing/image/)
+	Dimensionality Reduction @created(26-04-18 12:06):
+		There are two types of Dimensionality Reduction techniques:
+		    Feature Selection
+		    Feature Extraction
+		Feature Selection techniques:
+			Backward Elimination
+			Forward Selection
+			Bidirectional Elimination
+			Score Comparison
+
+		Feature Extraction techniques:
+		    Principal Component Analysis (PCA)
+		    Linear Discriminant Analysis (LDA)
+		    Kernel PCA
+		    Quadratic Discriminant Analysis (QDA)
+		Principal Component Analysis (PCA):
+			From the m independent variables of your dataset, PCA extracts p < m new independent variables that explain the most the variance of the dataset, regardless of the dependent variable. The fact that the DV is not considered makes PCA an unsupervised model.
+			- Preprocessing:
+				Import the dataset and generate the depending and independent variables.
+				Then split the dataset into test and training set.
+				Feature scaling must be applied when applying PCA.
+
+			- Applying PCA:
+				- sklearn.decomposition
+					from sklearn.decomposition import PCA
+					pca = PCA(n_components = None)
+					x_train = pca.fit_transform(x_train)\
+					x_test = pca.fit_transform(x_test)
+					explained_variance = pca.explained_variance_ratio_
+					We get the variance graph that explains how much each variable is going to explain the variance.
+
+			- Fitting the model:
+				since we have two components, we can now use the model on the training set and do our analysis. we can get good results since we chose the variables that can explain more variance.
+
+				Importance of PCA is that we can visualize the predictions properly.
+		Linear Discriminant Analysis (LDA):
+			From the n independent variables of your dataset, LDA extracts p < n new independent variables that separate the most the classes if the dependent variable. The fact that the DV is considered makes LDA a supervised model.
+			- Preprocessing:
+				same as PCA we can first preprocess the dataset by importing libraries and splitting the dataset.
+
+			- Applying LDA:
+				sklearn.discriminant_analysis
+				from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
+				lda = LDA(n_components = 2)
+				x_train = lda.fit_transform(x_train, y_train)
+				x_test = lda.transform(x_test)
+
+			- Fitting the model:
+				since we have two components, we can now use the model on the training set and do our analysis.
+				I don't really understand this, but I am gonna read more on this later.
+		Kernel PCA:
+			PCA and LDA are used when the dataset is linearly separable but when the data is not linearly separable, we can use kernel PCA.
+			- Preprocessing:
+				same as PCA we can first preprocess the dataset by importing libraries and splitting the dataset.
+
+			- Applying Kernel PCA:
+				from sklearn.decomposition import KernelPCA
+				kpca = KernelPCA(n_components = 2, kernel = 'rbf')
+				x_train = kpca.fit_transform(x_train)
+				x_test = kpca.transform(x_test)
+
+			- Fitting the model:
+				we get new data points and better split even if we use linear model on a non-linear dataset after we apply kernel PCA.
+	Model selection and Boosting @created(26-04-18 15:09):
+	    k-Fold Cross Validation
+		Grid Search
+		K-Fold Cross Validation:
+			In this model we split the training data into 10 folds and train the model on 9 folds and test the model on the last fold. We then take the average of the variances to get better understanding of our model performance.
+			- applying K-Fold cross validation:
+				from sklearn.model_selection import cross_val_score
+				accuracies = cross_val_score(estimator = classifier, x = x_train, y = y_train, cv = 10)
+				cv = numbers of folds we split the dataset.
+				accuracies.mean()
+				accuracies.std()
+
+		Grid Search:
+			this will help us select which model to choose and model parameters.
+			can be applied after fitting the model and testing model performance.
+			- Applying Grid Search:
+				from sklearn.model_selection import GridSearchCV
+				parameters = [{'c':[1, 10, 100, 1000], 'kernel':['linear']},
+				{'c':[1, 10, 100, 1000], 'kernel':['rbf'], 'gamma':[0.5, 0.1, 0.001]}]
+				grid_search = GridSearchCV(estimator = classifier, param_grid = parameters, scoring = 'accuracy', cv = 10)
+				grid_search = grid_search.fit(x_train, y_train)
+				best_accuracy = grid_search.best_score_
+				best_parameters = grid_search.best_params_
+
+	XGBoost @created(26-04-18 15:34):
+		installing the xgboost is done!
+		The reason we use XGBoost is because, it has high performance, fast execution speed and keep the interpret ability in the model since feature scaling is not applied.
+		- Fitting the XGBoost:
+			from xgboost import XGBClassifier
+			classifier = XGBClassifier()
+			classifier.fit(x_train, y_train)
+
+		- post processing:
+			once the classifier is ready, we can do make predictions and test the accuracy of the model and go k-fold cross validation.
+
+		This is the end of the course!
+		congrats to me I guess.
+		:)
+
